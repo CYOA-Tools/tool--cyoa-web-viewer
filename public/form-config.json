@@ -127,13 +127,57 @@
           "title": "The Looming Spires",
           "description": "...",
           "image": "/images/origin-origoth-cave-city",
-          "cost": [0,0],
+          "cost": [0, 0],
           "effects": [
             {
               "type": "uniqueString",
               "key": "Origin",
               "data": "The Looming Spires"
-            }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Allies",
+      "description": "Brothers sworn to your side, and who can be called upon in times of trouble",
+      "style": "list",
+      "choicesUnique": true,
+      "maxChoices": 3,
+      "options": [
+        {
+          "title": "Aefild 'Mad Axe' Erifson",
+          "description": "A seemingly quiet and unassuming man of strong stature, but once his blood has risen, his beserker rage can unnerve evens the most Stallwart warrior. Likes cats, hates bards.",
+          "image": "/images/ally-aefild",
+          "cost": [100, 0],
+          "effects": [
+            {
+              "type": "list",
+              "key": "Allies",
+              "data": {
+                "quantity": 1,
+                "name": "Aefild 'Mad Axe' Erifson",
+                "desc": "A quiet man, quick to a powerful beserker rage. +cats, -bards"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Karrick 'Steel' Olborn",
+          "description": "A grumpy dwarven drunkard, best known for his cunning and unorthodox methods of combat and problem solving, his plans always catch the enemy by surprise, but that desn't mean they'll work. Likes curvy women, hates sheriffs.",
+          "image": "/images/ally-aefild",
+          "cost": [50, 0],
+          "effects": [
+            {
+              "type": "list",
+              "key": "Allies",
+              "data": {
+                "quantity": 1,
+                "name": "Karrick 'Steel' Olborn",
+                "desc": "Grumpy dwarven drunkard, cunning, if dangerous planner. +chubby ladies, -sheriffs"
+              }
+            }
+          ]
         }
       ]
     }

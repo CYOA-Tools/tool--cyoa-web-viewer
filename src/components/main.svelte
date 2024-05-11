@@ -12,21 +12,19 @@
   });
 
   function getChoiceType(choice) {
+    console.log(">>choice", choice);
     if (!choice.choicesUnique) {
-      return SELECTION_TYPE.uniqueMulti;
-    } else if (choice.maxChoices > 1) {
       return SELECTION_TYPE.multi;
+    } else if (choice.maxChoices > 1) {
+      return SELECTION_TYPE.uniqueMulti;
     }
     return SELECTION_TYPE.uniqueOnce;
   }
 
-  function isOptionSelected(option, currentChoicesTaken, choice) {
-    const selections = { ...currentChoicesTaken.selections };
-
-    const currentSelectionItem = selections[choice.title];
+  function isOptionSelected(option, currentSelectionItem, choice) {
     const currentSelectionExists = !!currentSelectionItem;
 
-    const choiceType = getChoiceType(option);
+    const choiceType = getChoiceType(choice);
 
     let isSelected = false;
 
@@ -35,7 +33,7 @@
         const keys = currentSelectionExists
           ? Object.keys(currentSelectionItem)
           : [];
-        const currentQuantity = currentSelectionItem[option.title] ?? 0;
+        const currentQuantity = currentSelectionItem?.[option.title] ?? 0;
         if (keys.includes(option.title) && currentQuantity > 0) {
           isSelected = currentQuantity;
         }
@@ -64,8 +62,13 @@
     Choices.update((current) => {
       const selections = { ...current.selections };
       let currentSelectionItem = selections[choice.title];
+      const currentSelectionExists = !!currentSelectionItem;
 
-      const isSelected = !!isOptionSelected(option, current, choice);
+      const isSelected = !!isOptionSelected(
+        option,
+        currentSelectionItem,
+        choice
+      );
 
       switch (choiceType) {
         case SELECTION_TYPE.multi:
@@ -76,11 +79,17 @@
           }
           break;
         case SELECTION_TYPE.uniqueMulti:
-          const indexOfItem = currentSelectionItem.indexOf(option.title);
+          const indexOfItem = currentSelectionExists
+            ? currentSelectionItem.indexOf(option.title)
+            : -1;
           if (isSelected) {
             currentSelectionItem.splice(indexOfItem, 1);
           } else {
-            currentSelectionItem.push(option.title);
+            if (!currentSelectionExists) {
+              currentSelectionItem = [option.title];
+            } else {
+              currentSelectionItem.push(option.title);
+            }
           }
           break;
         case SELECTION_TYPE.uniqueOnce:
@@ -147,7 +156,11 @@
       <div class="w-full h-px bg-black"></div>
       {#if choice.style === "list"}
         {#each choice.options as opt}
-          {@const isSelected = isOptionSelected(opt, currentChoices, choice)}
+          {@const isSelected = isOptionSelected(
+            opt,
+            currentChoices.selections[choice.title],
+            choice
+          )}
 
           <!-- LIST BTN -->
           <button
@@ -164,7 +177,11 @@
       {:else}
         <div class="flex flex-wrap w-full gap-3 2xl:gap-6 justify-center">
           {#each choice.options as opt}
-            {@const isSelected = isOptionSelected(opt, currentChoices, choice)}
+            {@const isSelected = isOptionSelected(
+              opt,
+              currentChoices.selections[choice.title],
+              choice
+            )}
 
             <!-- BOXES BTN -->
             <button
