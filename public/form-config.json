@@ -39,7 +39,7 @@
           "title": "Human Hunter",
           "description": "You spent your days hunting & foraging, learning to track and move silently. Your expertise was often employed by men of the law to aid in the tracking of outlaws. You skill with the bow is unmatched. Gain a bow",
           "image": "/images/archetype-human-hunter.webp",
-          "cost": ["0", 0],
+          "cost": [0, 0],
           "effects": [
             {
               "type": "uniqueString",
@@ -47,7 +47,7 @@
               "data": "Human Hunter"
             },
             {
-              "type": "item",
+              "type": "list",
               "key": "Items",
               "data": {
                 "quantity": 1,
@@ -60,7 +60,7 @@
         {
           "title": "Human Warrior",
           "description": "Raised in the blood of battle you had once protected the lands of your lord from the violent beasts the prowl the land. Your fearlessness in battlewhen destroying corrupted beasts has made you an granted you the capacity to speak the tongue of deathwatch carrion crows.",
-          "cost": ["-50", 0],
+          "cost": [50, 0],
           "effects": [
             {
               "type": "uniqueString",
@@ -68,7 +68,7 @@
               "data": "Human Warrior"
             },
             {
-              "type": "item",
+              "type": "list",
               "key": "Items",
               "data": {
                 "quantity": 1,
@@ -77,7 +77,7 @@
               }
             },
             {
-              "type": "item",
+              "type": "list",
               "key": "Items",
               "data": {
                 "quantity": 1,
@@ -91,6 +91,49 @@
               "data": "Crow Tongue"
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "Origin",
+      "description": "The tale of your birth & childhood.",
+      "style": "boxes",
+      "choicesUnique": true,
+      "maxChoices": 1,
+      "options": [
+        {
+          "title": "Origoth - the Cave City",
+          "description": "",
+          "image": "/images/origin-origoth-cave-city",
+          "cost": [50, 0],
+          "effects": [
+            {
+              "type": "uniqueString",
+              "key": "Origin",
+              "data": "Origoth - the Cave City"
+            },
+            {
+              "type": "list",
+              "key": "Items",
+              "data": {
+                "quantity": 1,
+                "name": "Origoth Lantern",
+                "desc": "Famed for their compact size & brigth light, it is a token of your childhood"
+              }
+            }
+          ]
+        },
+        {
+          "title": "The Looming Spires",
+          "description": "...",
+          "image": "/images/origin-origoth-cave-city",
+          "cost": [0,0],
+          "effects": [
+            {
+              "type": "uniqueString",
+              "key": "Origin",
+              "data": "The Looming Spires"
+            }]
         }
       ]
     }

@@ -3,10 +3,21 @@
   import Sidebar from "./components/sidebar.svelte";
   import Main from "./components/main.svelte";
   import { CYOAConfig } from "./stores/config";
+  import { Choices } from "./stores/choices";
 
   let fetchJson = fetch("form-config.json").then((res) => res.json());
 
-  fetchJson.then((config) => CYOAConfig.set(config));
+  fetchJson.then((config) => {
+    CYOAConfig.set(config);
+    Choices.set({
+      points: config.setup.points.map((p) => p.startValue),
+      selections: {},
+      effects: {
+        example: "eg-name",
+        stuff: [{ quantity: 1, name: "a thing", desc: "..." }],
+      },
+    });
+  });
 </script>
 
 {#await fetchJson}

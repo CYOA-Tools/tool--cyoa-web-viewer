@@ -3,8 +3,16 @@
   import Button from "./button.svelte";
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
+  import { SELECTION_TYPE, Choices } from "../stores/choices";
+  import Sidecard from "./sidecard.svelte";
 
   const config = get(CYOAConfig);
+  let choices = {};
+
+  Choices.subscribe((value) => {
+    choices = value;
+    console.log("-->>SB - choices", { ...choices });
+  });
 
   const options = {
     thin: "thin",
@@ -13,6 +21,15 @@
   };
   let currentWidth = options.mid;
   let name = "Name";
+
+  function getSelectionType(selectionsItem) {
+    if (Array.isArray(selectionsItem)) {
+      return SELECTION_TYPE.uniqueMulti;
+    } else if (typeof selectionsItem === "object") {
+      return SELECTION_TYPE.multi;
+    }
+    return SELECTION_TYPE.uniqueOnce;
+  }
 </script>
 
 <div
@@ -41,40 +58,54 @@
   </div>
 
   <div class="p-1.5 text-sm">
-    <h2>Sidebar</h2>
-    <!-- line,small,max -->
-    <div class="flex gap-2">
-      <label for="name">Name:</label>
-      <input id="name" bind:value={name} />
-    </div>
-
-    <div class="flex gap-2">
-      <img src="" alt="character-icon" />
-
-      <div class="flex flex-col gap-2">
-        <div class="flex gap-2">
-          <span>Pts</span>
-          <span
-            >{config.setup.points[0].startValue}/{config.setup.points[0]
-              .startValue}</span
-          >
-        </div>
-        <div class="flex gap-2">
-          <span>Skills</span>
-          <span>4/4</span>
-        </div>
+    <Sidecard>
+      <div class="flex gap-2">
+        <label for="name">Name:</label>
+        <input id="name" bind:value={name} />
       </div>
-    </div>
+
+      <div class="flex gap-2">
+        <img src="" alt="character-icon" />
+
+        <div class="flex flex-col gap-2">
+          {#each config.setup.points as pointTypes, index}
+            <div class="flex gap-2">
+              <span class={currentWidth === options.wide ? "block" : "hidden"}
+                >{pointTypes.fullName}</span
+              >
+              <span class={currentWidth === options.wide ? "hidden" : "block"}
+                >{pointTypes.name}</span
+              >
+              <span
+                >{choices?.points?.[index] ??
+                  pointTypes.startValue}/{pointTypes.startValue}</span
+              >
+            </div>
+          {/each}
+        </div>
+      </div></Sidecard
+    >
 
     <div class="flex flex-col gap-2">
-      <div class="flex gap-2">
-        <b>Choice</b>
-        <span>Example</span>
-      </div>
-      <div class="flex gap-2">
-        <b>Choice2</b>
-        <span>45</span>
-      </div>
+      {#each Object.entries(choices.effects) as [key, effect]}
+        <Sidecard>
+          {@const isUniqueString = typeof effect === "string"}
+
+          {#if isUniqueString}
+            <div class="flex gap-2">
+              <b>{key}</b>
+              <span>{effect}</span>
+            </div>
+          {:else}
+            <b>{key}</b>
+            <div class="flex gap-2 flex-wrap">
+              {#each effect as effectListItem}
+                <p>{effectListItem.name}</p>
+              {/each}
+            </div>
+          {/if}
+        </Sidecard>
+      {/each}
     </div>
   </div>
 </div>
