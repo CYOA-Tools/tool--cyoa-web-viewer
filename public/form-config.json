@@ -1,0 +1,36 @@
+{
+  "setup": {
+    "points": [
+      {
+        "startValue": 1000,
+        "fullName": "Character Points",
+        "name": "Pts",
+        "icon": "/icons/character-points.png"
+      },
+      {
+        "startValue": 4,
+        "fullName": "Skill Points",
+        "name": "SkP",
+        "icon": "/icons/skill-points.png"
+      }
+    ]
+  },
+  "title": {
+    "cyoaName": "Deep Forest CYOA",
+    "tagline": "an Adventure",
+    "author": "me",
+    "version": "0.1"
+  },
+  "intro": {
+    "title": "Welcome to the example",
+    "introText": "lorem epsum df hsd fhsd fklsd fhaldksfh asf dfv jhasf ghs j",
+    "subtitle": "You start with 1000 MP, choose wisely",
+    "baseImage": "/images/base-image.webp"
+  },
+  "choices": [],
+  "style": {
+    "text": {
+      "textColor": "#621d1d"
+    }
+  }
+}
