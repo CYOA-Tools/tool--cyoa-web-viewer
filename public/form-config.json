@@ -27,10 +27,77 @@
     "subtitle": "You start with 1000 MP, choose wisely",
     "baseImage": "/images/base-image.webp"
   },
-  "choices": [],
+  "choices": [
+    {
+      "title": "Character Archetype",
+      "description": "The archetype from which your character descends",
+      "style": "list",
+      "choicesUnique": true,
+      "maxChoices": 1,
+      "options": [
+        {
+          "title": "Human Hunter",
+          "description": "You spent your days hunting & foraging, learning to track and move silently. Your expertise was often employed by men of the law to aid in the tracking of outlaws. You skill with the bow is unmatched. Gain a bow",
+          "image": "/images/archetype-human-hunter.webp",
+          "cost": ["0", 0],
+          "effects": [
+            {
+              "type": "uniqueString",
+              "key": "Archetype",
+              "data": "Human Hunter"
+            },
+            {
+              "type": "item",
+              "key": "Items",
+              "data": {
+                "quantity": 1,
+                "name": "Short Bow",
+                "desc": "A hunter's shortbow, nimble and quick to fire"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Human Warrior",
+          "description": "Raised in the blood of battle you had once protected the lands of your lord from the violent beasts the prowl the land. Your fearlessness in battlewhen destroying corrupted beasts has made you an granted you the capacity to speak the tongue of deathwatch carrion crows.",
+          "cost": ["-50", 0],
+          "effects": [
+            {
+              "type": "uniqueString",
+              "key": "Archetype",
+              "data": "Human Warrior"
+            },
+            {
+              "type": "item",
+              "key": "Items",
+              "data": {
+                "quantity": 1,
+                "name": "Stout Shield",
+                "desc": "A fine, hardy, shield, painted with family heraldry"
+              }
+            },
+            {
+              "type": "item",
+              "key": "Items",
+              "data": {
+                "quantity": 1,
+                "name": "Battle Axe",
+                "desc": "A heavy, well balanced warriors axe, worn, but still to be greatly feared"
+              }
+            },
+            {
+              "type": "list",
+              "key": "Languages",
+              "data": "Crow Tongue"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "style": {
     "text": {
-      "textColor": "#621d1d"
+      "textColor": "#000"
     }
   }
 }
