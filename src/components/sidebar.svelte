@@ -1,7 +1,10 @@
 <script>
   import Icon from "@iconify/svelte";
   import Button from "./button.svelte";
-  export let config = {};
+  import { get } from "svelte/store";
+  import { CYOAConfig } from "../stores/config";
+
+  const config = get(CYOAConfig);
 
   const options = {
     thin: "thin",
@@ -9,6 +12,7 @@
     wide: "wide",
   };
   let currentWidth = options.mid;
+  let name = "Name";
 </script>
 
 <div
@@ -38,8 +42,39 @@
 
   <h2>Sidebar</h2>
   <!-- line,small,max -->
+  <div class="flex gap-2">
+    <label for="name">Name:</label>
+    <input id="name" bind:value={name} />
+  </div>
 
-  <div>{config.setup.points[0].startValue}</div>
+  <div class="flex gap-2">
+    <img src="" alt="character-icon" />
+
+    <div class="flex flex-col gap-2">
+      <div class="flex gap-2">
+        <span>Pts</span>
+        <span
+          >{config.setup.points[0].startValue}/{config.setup.points[0]
+            .startValue}</span
+        >
+      </div>
+      <div class="flex gap-2">
+        <span>Skills</span>
+        <span>4/4</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <div class="flex gap-2">
+      <b>Choice</b>
+      <span>Example</span>
+    </div>
+    <div class="flex gap-2">
+      <b>Choice2</b>
+      <span>45</span>
+    </div>
+  </div>
 </div>
 
 <style>
