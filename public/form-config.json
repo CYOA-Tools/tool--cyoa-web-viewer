@@ -180,6 +180,49 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Items",
+      "description": "The right equipment can keep you alive when teh tide turns against you.",
+      "style": "boxes",
+      "choicesUnique": false,
+      "maxChoices": 10,
+      "options": [
+        {
+          "title": "Elixir of heaven's dew",
+          "description": "A misty honey colored draught, gathered by the druids of the forbidden circle, this potion can cure it's drinker of mortal wounds, returning them to a youthful health within a few days of imbibement",
+          "image": "/images/item-heavens-elixir",
+          "cost": [100, 0],
+          "effects": [
+            {
+              "type": "list",
+              "key": "Allies",
+              "data": {
+                "quantity": 1,
+                "name": "Elixir of heaven's dew",
+                "desc": "Honey potion, cures mortal wounds over 3 days"
+              }
+            }
+          ]
+        },{
+          "title": "Mechanical Talisman",
+          "description": "Can tell it's user of approaching dangers and which direction they are coming. Limited to slightly under a mile in range, but directionality decreases in accuracy at further ranges",
+          "image": "/images/item-heavens-elixir",
+          "cost": [100, 0],
+          "unique": true,
+          "effects": [
+            {
+              "type": "list",
+              "key": "Allies",
+              "data": {
+                "quantity": 1,
+                "name": "Mechanical Talisman",
+                "desc": "Indicates danger, and direction, though less accurate futher away, max range under a mile"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "style": {

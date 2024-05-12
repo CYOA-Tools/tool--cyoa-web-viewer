@@ -3,6 +3,7 @@
   import { CYOAConfig } from "../stores/config";
   import Card from "./card.svelte";
   import { SELECTION_TYPE, Choices } from "../stores/choices";
+  import Icon from "@iconify/svelte";
 
   const config = get(CYOAConfig);
 
@@ -12,7 +13,6 @@
   });
 
   function getChoiceType(choice) {
-    console.log(">>choice", choice);
     if (!choice.choicesUnique) {
       return SELECTION_TYPE.multi;
     } else if (choice.maxChoices > 1) {
@@ -72,10 +72,20 @@
 
       switch (choiceType) {
         case SELECTION_TYPE.multi:
-          if (isSelected) {
+          if (isSelected && option.unique) {
             currentSelectionItem[option.title] -= 1;
           } else {
-            currentSelectionItem[option.title] += 1;
+            if (currentSelectionExists) {
+              if (!!currentSelectionItem[option.title]) {
+                currentSelectionItem[option.title] += 1;
+              } else {
+                currentSelectionItem[option.title] = 1;
+              }
+            } else {
+              currentSelectionItem = {
+                [option.title]: 1,
+              };
+            }
           }
           break;
         case SELECTION_TYPE.uniqueMulti:
@@ -102,12 +112,47 @@
       }
 
       let points = current.points;
-      if (isSelected) {
+      if (
+        isSelected &&
+        (option.unique || choiceType !== SELECTION_TYPE.multi)
+      ) {
         points = points.map((pointValue, i) => pointValue + option.cost[i]);
       } else {
         points = points.map((pointValue, i) => pointValue - option.cost[i]);
       }
+
       selections[choice.title] = currentSelectionItem;
+      return {
+        points,
+        selections,
+        effects: current.effects,
+      };
+    });
+  }
+
+  function getMultiVaues(choice, currentPickedChoices, option) {
+    if (!choice?.choicesUnique) {
+      return (
+        currentPickedChoices.selections?.[choice.title]?.[option.title] ?? 0
+      );
+    }
+    return false;
+  }
+
+  function clearMulti(choice, option) {
+    Choices.update((current) => {
+      const selections = { ...current.selections };
+
+      let currentSelectionItem = selections[choice.title];
+      const currentSelectionQuantity = currentSelectionItem[option.title];
+
+      let points = current.points;
+      points = points.map(
+        (pointValue, i) =>
+          pointValue + option.cost[i] * currentSelectionQuantity
+      );
+
+      currentSelectionItem[option.title] = 0;
       return {
         points,
         selections,
@@ -182,15 +227,37 @@
               currentChoices.selections[choice.title],
               choice
             )}
+            {@const multiValues = getMultiVaues(choice, currentChoices, opt)}
 
             <!-- BOXES BTN -->
             <button
-              class={`w-full flex flex-col gap-3 border-2 rounded-lg md:w-64 lg:w-72 xl:w-80 ${isSelected ? "border-red-600" : "border-black"}`}
+              class={`w-full flex flex-col gap-3 border-2 rounded-lg md:w-64 lg:w-72 xl:w-80 overflow-hidden relative ${isSelected ? "border-red-600" : "border-black"}`}
               on:click={() => onOptionSelect(opt, choice)}
             >
+              {#if !!multiValues && !opt.unique}
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <div
+                  on:click={(e) => {
+                    e.stopPropagation();
+                  }}
+                  role="button"
+                  tabindex="-1000"
+                  class="absolute flex items-center gap-1.5 right-0 top-0 bg-black bg-opacity-60 rounded-bl-md p-0.5 px-1.5 text-sm text-white"
+                >
+                  <span>x{multiValues}</span>
+                  <button
+                    on:click={(e) => {
+                      clearMulti(choice, opt);
+                      e.stopPropagation();
+                    }}><Icon icon="ant-design:close-circle-filled" /></button
+                  >
+                </div>
+              {/if}
               <img class="w-full h-auto" src={opt.image} alt={choice.title} />
 
-              <div class="flex flex-col gap-1.5 items-start">
+              <div
+                class="flex flex-col gap-1.5 items-start p-1.5 xl:p-3 xl:gap-3"
+              >
                 <h4 class="font-semibold">{opt.title}</h4>
                 <p class="text-sm text-left">{opt.description}</p>
               </div>
