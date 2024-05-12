@@ -88,7 +88,11 @@
             {
               "type": "list",
               "key": "Languages",
-              "data": "Crow Tongue"
+              "data": {
+                "quantity": 1,
+                "name": "Carrion Tongue",
+                "desc": "The capacity to speak the tongue of crows"
+              }
             }
           ]
         }
@@ -196,7 +200,7 @@
           "effects": [
             {
               "type": "list",
-              "key": "Allies",
+              "key": "Items",
               "data": {
                 "quantity": 1,
                 "name": "Elixir of heaven's dew",
@@ -204,7 +208,8 @@
               }
             }
           ]
-        },{
+        },
+        {
           "title": "Mechanical Talisman",
           "description": "Can tell it's user of approaching dangers and which direction they are coming. Limited to slightly under a mile in range, but directionality decreases in accuracy at further ranges",
           "image": "/images/item-heavens-elixir",
@@ -213,7 +218,7 @@
           "effects": [
             {
               "type": "list",
-              "key": "Allies",
+              "key": "Items",
               "data": {
                 "quantity": 1,
                 "name": "Mechanical Talisman",

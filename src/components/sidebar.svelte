@@ -33,7 +33,7 @@
 </script>
 
 <div
-  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-500 border-r border-black`}
+  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-hidden`}
 >
   <div class="flex justify-between p-1.5">
     <Button
@@ -57,7 +57,7 @@
     </Button>
   </div>
 
-  <div class="p-1.5 text-sm">
+  <div class="p-1.5 text-sm flex flex-col gap-2">
     <Sidecard>
       <div class="flex gap-2">
         <label for="name">Name:</label>
@@ -77,8 +77,8 @@
                 >{pointTypes.name}</span
               >
               <span
-                ><b>{choices?.points?.[index] ??
-                  pointTypes.startValue}</b>/{pointTypes.startValue}</span
+                ><b>{choices?.points?.[index] ?? pointTypes.startValue}</b
+                >/{pointTypes.startValue}</span
               >
             </div>
           {/each}
@@ -86,7 +86,7 @@
       </div></Sidecard
     >
 
-    <div class="flex flex-col gap-2">
+    {#key choices}
       {#each Object.entries(choices.effects) as [key, effect]}
         <Sidecard>
           {@const isUniqueString = typeof effect === "string"}
@@ -100,13 +100,20 @@
             <b>{key}</b>
             <div class="flex gap-2 flex-wrap">
               {#each effect as effectListItem}
-                <p>{effectListItem.name}</p>
+                {#if effectListItem.quantity !== 0}
+                  <p>
+                    <span>{effectListItem.name}</span
+                    >{#if effectListItem.quantity > 1}
+                      <span class="ml-1">x{effectListItem.quantity}</span>
+                    {/if}
+                  </p>
+                {/if}
               {/each}
             </div>
           {/if}
         </Sidecard>
       {/each}
-    </div>
+    {/key}
   </div>
 </div>
 

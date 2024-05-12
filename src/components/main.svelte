@@ -2,7 +2,7 @@
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
   import Card from "./card.svelte";
-  import { SELECTION_TYPE, Choices } from "../stores/choices";
+  import { SELECTION_TYPE, Choices, EFFECT_TYPE } from "../stores/choices";
   import Icon from "@iconify/svelte";
   import Cost from "./cost.svelte";
 
@@ -57,11 +57,72 @@
     return isSelected;
   }
 
+  function adjustEffect(
+    isRemoveAction,
+    currentEffects,
+    effects,
+    isClear = false
+  ) {
+    const currentEffectsLocal = { ...currentEffects };
+
+    effects.map((effect) => {
+      switch (effect.type) {
+        case EFFECT_TYPE.list:
+          if (!currentEffectsLocal?.[effect.key]) {
+            const newData = isClear
+              ? { ...effect.data, quantity: 0 }
+              : { ...effect.data };
+            currentEffectsLocal[effect.key] = [newData];
+            if (isRemoveAction) {
+              currentEffectsLocal[effect.key].quantity = 0;
+            }
+          } else {
+            const currentEffectStatus = currentEffectsLocal[effect.key];
+
+            const activeEffectEntryIndex = currentEffectStatus.findIndex(
+              (activeEffectEntry) => activeEffectEntry.name === effect.data.name
+            );
+            const quantity = effect.data.quantity ?? 1;
+
+            if (activeEffectEntryIndex !== -1) {
+              if (isRemoveAction) {
+                currentEffectStatus[activeEffectEntryIndex].quantity -=
+                  quantity;
+              } else if (isClear) {
+                currentEffectStatus[activeEffectEntryIndex].quantity = 0;
+              } else {
+                currentEffectStatus[activeEffectEntryIndex].quantity +=
+                  quantity;
+              }
+            } else {
+              if (isRemoveAction || isClear) {
+                const emptyItem = { ...effect.data, quantity: 0 };
+                currentEffectStatus.push(emptyItem);
+              } else {
+                currentEffectStatus.push({ ...effect.data });
+              }
+            }
+          }
+
+          break;
+        case EFFECT_TYPE.uniqueString:
+          if (isRemoveAction || isClear) {
+            currentEffectsLocal[effect.key] = "";
+          } else {
+            currentEffectsLocal[effect.key] = effect.data;
+          }
+          break;
+      }
+    });
+    return currentEffectsLocal;
+  }
+
   function onOptionSelect(option, choice) {
     const choiceType = getChoiceType(choice);
 
     Choices.update((current) => {
       const selections = { ...current.selections };
+      let activeEffects = { ...current.effects };
       let currentSelectionItem = selections[choice.title];
       const currentSelectionExists = !!currentSelectionItem;
 
@@ -75,39 +136,61 @@
         case SELECTION_TYPE.multi:
           if (isSelected && option.unique) {
             currentSelectionItem[option.title] -= 1;
+            activeEffects = adjustEffect(true, activeEffects, option.effects);
           } else {
             if (currentSelectionExists) {
               if (!!currentSelectionItem[option.title]) {
                 currentSelectionItem[option.title] += 1;
+                activeEffects = adjustEffect(
+                  false,
+                  activeEffects,
+                  option.effects
+                );
               } else {
                 currentSelectionItem[option.title] = 1;
+                activeEffects = adjustEffect(
+                  false,
+                  activeEffects,
+                  option.effects
+                );
               }
             } else {
               currentSelectionItem = {
                 [option.title]: 1,
               };
+              activeEffects = adjustEffect(
+                false,
+                activeEffects,
+                option.effects
+              );
             }
           }
           break;
+
         case SELECTION_TYPE.uniqueMulti:
           const indexOfItem = currentSelectionExists
             ? currentSelectionItem.indexOf(option.title)
             : -1;
           if (isSelected) {
             currentSelectionItem.splice(indexOfItem, 1);
+            activeEffects = adjustEffect(true, activeEffects, option.effects);
           } else {
             if (!currentSelectionExists) {
               currentSelectionItem = [option.title];
             } else {
               currentSelectionItem.push(option.title);
             }
+            activeEffects = adjustEffect(false, activeEffects, option.effects);
           }
           break;
+
         case SELECTION_TYPE.uniqueOnce:
           if (isSelected) {
             currentSelectionItem = "";
+            activeEffects = adjustEffect(true, activeEffects, option.effects);
           } else {
             currentSelectionItem = option.title;
+            activeEffects = adjustEffect(false, activeEffects, option.effects);
           }
           break;
       }
@@ -126,7 +209,7 @@
       return {
         points,
         selections,
-        effects: current.effects,
+        effects: activeEffects,
       };
     });
   }
@@ -143,6 +226,12 @@
   function clearMulti(choice, option) {
     Choices.update((current) => {
       const selections = { ...current.selections };
+      const effects = adjustEffect(
+        false,
+        current.effects,
+        option.effects,
+        true
+      );
 
       let currentSelectionItem = selections[choice.title];
       const currentSelectionQuantity = currentSelectionItem[option.title];
@@ -157,7 +246,7 @@
       return {
         points,
         selections,
-        effects: current.effects,
+        effects,
       };
     });
   }
