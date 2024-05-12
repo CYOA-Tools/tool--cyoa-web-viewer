@@ -6,6 +6,8 @@
   import { Choices } from "./stores/choices";
 
   let fetchJson = fetch("form-config.json").then((res) => res.json());
+  let textFontURL;
+  let familyMain;
 
   fetchJson.then((config) => {
     CYOAConfig.set(config);
@@ -17,8 +19,14 @@
         stuff: [{ quantity: 1, name: "a thing", desc: "..." }],
       },
     });
+    textFontURL = config.style.import.text;
+    familyMain = config.style.text.familyMain;
   });
 </script>
+
+<svelte:head>
+  <link href={textFontURL} rel="stylesheet" />
+</svelte:head>
 
 {#await fetchJson}
   <main>
@@ -27,7 +35,8 @@
 {:then result}
   <main
     class="w-full flex-1 flex h-full bg-slate-200 justify-stretch"
-    style="--textColor:{result.style.text.textColor};"
+    style="--textColor:{result.style.text.textColor};--familyMain:{result.style
+      .text.familyMain}"
   >
     <Sidebar />
     <Main />
@@ -37,5 +46,8 @@
 <style>
   :global(main) {
     color: var(--textColor);
+    font-family: var(--familyMain);
+    /* font-weight: 400; */
+    font-style: normal;
   }
 </style>

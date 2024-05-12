@@ -57,11 +57,11 @@
     </Button>
   </div>
 
-  <div class="p-1.5 text-sm flex flex-col gap-2">
+  <div class="p-1.5 text-sm xl:text-base flex flex-col gap-2">
     <Sidecard>
       <div class="flex gap-2">
         <label for="name">Name:</label>
-        <input id="name" bind:value={name} />
+        <input id="name" bind:value={name} class="w-full rounded-md" />
       </div>
 
       <div class="flex gap-2">

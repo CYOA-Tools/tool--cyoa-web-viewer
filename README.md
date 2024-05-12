@@ -16,7 +16,6 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- import custom font
 - collapseable entries
 - entry summarises choices
 - mini point viewer for thin sidebar
@@ -24,7 +23,7 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 - popup item viewer
 - JSON character export
 - git link
-
+- code cleanup/clarity
 
 ??
 - toast errors/can't afford, etc

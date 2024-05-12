@@ -231,7 +231,11 @@
     }
   ],
   "style": {
+    "import": {
+      "text": "https://fonts.googleapis.com/css2?family=Audiowide&family=Sedan+SC&display=swap"
+    },
     "text": {
+      "familyMain": "'Sedan SC', sans",
       "textColor": "#000"
     }
   }
