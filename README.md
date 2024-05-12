@@ -16,8 +16,8 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- collapseable entries
 - entry summarises choices
+- build contents with links - clear & summary
 - mini point viewer for thin sidebar
 - mobile inspect cards
 - popup item viewer
@@ -30,4 +30,5 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 - custom character image
 - custom footer link
 - orderable effect grouping
+- contents clear individual
 
