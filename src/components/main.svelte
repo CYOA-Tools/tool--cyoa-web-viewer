@@ -13,7 +13,7 @@
     currentChoices = value;
   });
 
-  function getChoiceType(choice) {
+  function getSelectionType(choice) {
     if (!choice.choicesUnique) {
       return SELECTION_TYPE.multi;
     } else if (choice.maxChoices > 1) {
@@ -25,7 +25,7 @@
   function isOptionSelected(option, currentSelectionItem, choice) {
     const currentSelectionExists = !!currentSelectionItem;
 
-    const choiceType = getChoiceType(choice);
+    const choiceType = getSelectionType(choice);
 
     let isSelected = false;
 
@@ -118,11 +118,12 @@
   }
 
   function onOptionSelect(option, choice) {
-    const choiceType = getChoiceType(choice);
+    const choiceType = getSelectionType(choice);
 
     Choices.update((current) => {
       const selections = { ...current.selections };
       let activeEffects = { ...current.effects };
+
       let currentSelectionItem = selections[choice.title];
       const currentSelectionExists = !!currentSelectionItem;
 
@@ -132,91 +133,116 @@
         choice
       );
 
-      switch (choiceType) {
-        case SELECTION_TYPE.multi:
-          if (isSelected && option.unique) {
-            currentSelectionItem[option.title] -= 1;
-            activeEffects = adjustEffect(true, activeEffects, option.effects);
-          } else {
-            if (currentSelectionExists) {
-              if (!!currentSelectionItem[option.title]) {
-                currentSelectionItem[option.title] += 1;
-                activeEffects = adjustEffect(
-                  false,
-                  activeEffects,
-                  option.effects
-                );
+      let points = [...current.points];
+      const canAfford = option.cost.every((cost, i) => {
+        const checkedCost =
+          isSelected && (choiceType !== SELECTION_TYPE.multi || option.unique)
+            ? -1 * cost
+            : cost;
+        if (checkedCost < 1 || points[i] >= checkedCost) {
+          return true;
+        }
+        return false;
+      });
+
+      if (canAfford) {
+        if (
+          isSelected &&
+          (option.unique || choiceType !== SELECTION_TYPE.multi)
+        ) {
+          points = points.map((pointValue, i) => pointValue + option.cost[i]);
+        } else {
+          points = points.map((pointValue, i) => pointValue - option.cost[i]);
+        }
+
+        switch (choiceType) {
+          case SELECTION_TYPE.multi:
+            if (isSelected && option.unique) {
+              currentSelectionItem[option.title] -= 1;
+              activeEffects = adjustEffect(true, activeEffects, option.effects);
+            } else {
+              if (currentSelectionExists) {
+                if (!!currentSelectionItem[option.title]) {
+                  currentSelectionItem[option.title] += 1;
+                  activeEffects = adjustEffect(
+                    false,
+                    activeEffects,
+                    option.effects
+                  );
+                } else {
+                  currentSelectionItem[option.title] = 1;
+                  activeEffects = adjustEffect(
+                    false,
+                    activeEffects,
+                    option.effects
+                  );
+                }
               } else {
-                currentSelectionItem[option.title] = 1;
+                currentSelectionItem = {
+                  [option.title]: 1,
+                };
                 activeEffects = adjustEffect(
                   false,
                   activeEffects,
                   option.effects
                 );
               }
+            }
+            break;
+
+          case SELECTION_TYPE.uniqueMulti:
+            const indexOfItem = currentSelectionExists
+              ? currentSelectionItem.indexOf(option.title)
+              : -1;
+            if (isSelected) {
+              currentSelectionItem.splice(indexOfItem, 1);
+              activeEffects = adjustEffect(true, activeEffects, option.effects);
             } else {
-              currentSelectionItem = {
-                [option.title]: 1,
-              };
+              if (!currentSelectionExists) {
+                currentSelectionItem = [option.title];
+              } else {
+                currentSelectionItem.push(option.title);
+              }
               activeEffects = adjustEffect(
                 false,
                 activeEffects,
                 option.effects
               );
             }
-          }
-          break;
+            break;
 
-        case SELECTION_TYPE.uniqueMulti:
-          const indexOfItem = currentSelectionExists
-            ? currentSelectionItem.indexOf(option.title)
-            : -1;
-          if (isSelected) {
-            currentSelectionItem.splice(indexOfItem, 1);
-            activeEffects = adjustEffect(true, activeEffects, option.effects);
-          } else {
-            if (!currentSelectionExists) {
-              currentSelectionItem = [option.title];
+          case SELECTION_TYPE.uniqueOnce:
+            if (isSelected) {
+              currentSelectionItem = "";
+              activeEffects = adjustEffect(true, activeEffects, option.effects);
             } else {
-              currentSelectionItem.push(option.title);
-            }
-            activeEffects = adjustEffect(false, activeEffects, option.effects);
-          }
-          break;
+              if (!!currentSelectionItem && currentSelectionItem !== "") {
+                const currentSelectionData = choice.options.find(
+                  (option) => option.title === currentSelectionItem
+                );
+                activeEffects = adjustEffect(
+                  true,
+                  activeEffects,
+                  currentSelectionData.effects
+                );
+                points = points.map(
+                  (pointValue, i) => pointValue + currentSelectionData.cost[i]
+                );
+              }
 
-        case SELECTION_TYPE.uniqueOnce:
-          if (isSelected) {
-            currentSelectionItem = "";
-            activeEffects = adjustEffect(true, activeEffects, option.effects);
-          } else {
-            if (!!currentSelectionItem && currentSelectionItem !== "") {
-              const currentSelectionData = choice.options.find(
-                (option) => option.title === currentSelectionItem
-              );
+              currentSelectionItem = option.title;
               activeEffects = adjustEffect(
-                true,
+                false,
                 activeEffects,
-                currentSelectionData.effects
+                option.effects
               );
             }
+            break;
+        }
 
-            currentSelectionItem = option.title;
-            activeEffects = adjustEffect(false, activeEffects, option.effects);
-          }
-          break;
+        selections[choice.title] = currentSelectionItem;
       }
 
-      let points = current.points;
-      if (
-        isSelected &&
-        (option.unique || choiceType !== SELECTION_TYPE.multi)
-      ) {
-        points = points.map((pointValue, i) => pointValue + option.cost[i]);
-      } else {
-        points = points.map((pointValue, i) => pointValue - option.cost[i]);
-      }
-
-      selections[choice.title] = currentSelectionItem;
       return {
         points,
         selections,
