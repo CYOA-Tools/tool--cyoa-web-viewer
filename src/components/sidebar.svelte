@@ -69,7 +69,14 @@
 
         <div class="flex flex-col gap-2">
           {#each config.setup.points as pointTypes, index}
-            <div class="flex gap-2">
+            <div class="flex gap-2 items-center">
+              {#if !!pointTypes.icon}
+                <img
+                  src={pointTypes.icon}
+                  alt="points icon"
+                  class={currentWidth === options.wide ? "h-8" : "h-4"}
+                />
+              {/if}
               <span class={currentWidth === options.wide ? "block" : "hidden"}
                 >{pointTypes.fullName}</span
               >

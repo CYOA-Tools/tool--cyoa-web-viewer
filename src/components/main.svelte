@@ -336,7 +336,7 @@
 
           <!-- LIST BTN -->
           <button
-            class={`flex justify-between gap-3 xl:gap-6 border-2 ${isSelected ? "border-red-600" : "border-transparent"}`}
+            class={`flex justify-between gap-3 xl:gap-6 border-2 p-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
             on:click={() => onOptionSelect(opt, choice)}
           >
             <div class="flex flex-col gap-1.5 items-start">
