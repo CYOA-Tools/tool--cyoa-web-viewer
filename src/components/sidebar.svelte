@@ -77,8 +77,8 @@
                 >{pointTypes.name}</span
               >
               <span
-                >{choices?.points?.[index] ??
-                  pointTypes.startValue}/{pointTypes.startValue}</span
+                ><b>{choices?.points?.[index] ??
+                  pointTypes.startValue}</b>/{pointTypes.startValue}</span
               >
             </div>
           {/each}

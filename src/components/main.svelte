@@ -4,6 +4,7 @@
   import Card from "./card.svelte";
   import { SELECTION_TYPE, Choices } from "../stores/choices";
   import Icon from "@iconify/svelte";
+  import Cost from "./cost.svelte";
 
   const config = get(CYOAConfig);
 
@@ -209,12 +210,13 @@
 
           <!-- LIST BTN -->
           <button
-            class={`flex gap-3 border-2 ${isSelected ? "border-red-600" : "border-transparent"}`}
+            class={`flex justify-between gap-3 xl:gap-6 border-2 ${isSelected ? "border-red-600" : "border-transparent"}`}
             on:click={() => onOptionSelect(opt, choice)}
           >
             <div class="flex flex-col gap-1.5 items-start">
               <h4 class="font-semibold">{opt.title}</h4>
               <p class="text-sm text-left">{opt.description}</p>
+              <Cost {opt} />
             </div>
             <img src={opt.image} alt={choice.title} />
           </button>
@@ -256,10 +258,13 @@
               <img class="w-full h-auto" src={opt.image} alt={choice.title} />
 
               <div
-                class="flex flex-col gap-1.5 items-start p-1.5 xl:p-3 xl:gap-3"
+                class="flex-1 flex justify-between flex-col gap-1.5 items-start p-1.5 xl:p-3 xl:gap-3"
               >
-                <h4 class="font-semibold">{opt.title}</h4>
+                <div class="flex flex-col gap-1.5 xl:gap-3">
+                  <h4 class="font-semibold">{opt.title}</h4>
+                </div>
                 <p class="text-sm text-left">{opt.description}</p>
+                <Cost {opt} />
               </div>
             </button>
           {/each}
