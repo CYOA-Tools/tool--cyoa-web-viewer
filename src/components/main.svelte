@@ -189,6 +189,17 @@
             currentSelectionItem = "";
             activeEffects = adjustEffect(true, activeEffects, option.effects);
           } else {
+            if (!!currentSelectionItem && currentSelectionItem !== "") {
+              const currentSelectionData = choice.options.find(
+                (option) => option.title === currentSelectionItem
+              );
+              activeEffects = adjustEffect(
+                true,
+                activeEffects,
+                currentSelectionData.effects
+              );
+            }
+
             currentSelectionItem = option.title;
             activeEffects = adjustEffect(false, activeEffects, option.effects);
           }
