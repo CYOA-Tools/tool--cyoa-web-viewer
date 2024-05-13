@@ -8,7 +8,7 @@
 
   const config = get(CYOAConfig);
   let isCollapsedList = config?.choices?.map(() => false) ?? [];
-  
+
   function updateCollapsed(i, setCollapsed = true) {
     const localList = [...isCollapsedList];
     localList[i] = setCollapsed;
@@ -18,6 +18,7 @@
   let currentChoices;
   Choices.subscribe((value) => {
     currentChoices = value;
+    console.log("value", value);
   });
 
   function getSelectionType(choice) {
@@ -27,6 +28,27 @@
       return SELECTION_TYPE.uniqueMulti;
     }
     return SELECTION_TYPE.uniqueOnce;
+  }
+
+  function choiceSummary(choice) {
+    const currentSelectionData = currentChoices.selections?.[choice.title];
+    const type = getSelectionType(choice);
+
+    if (currentSelectionData) {
+      switch (type) {
+        case SELECTION_TYPE.uniqueOnce:
+          return currentSelectionData;
+        case SELECTION_TYPE.uniqueMulti:
+          return currentSelectionData.join(", ");
+        case SELECTION_TYPE.multi:
+          return Object.entries(currentSelectionData)
+            .map(
+              ([title, number]) => `${title}${number > 1 ? " x" + number : ""}`
+            )
+            .join(", ");
+      }
+    }
+    return "None";
   }
 
   function isOptionSelected(option, currentSelectionItem, choice) {
@@ -323,8 +345,6 @@
     <p class="text-sm">{config.intro?.subtitle}</p>
   </Card>
 
-  <!-- choices list -->
-
   {#each config.choices as choice, i}
     <Card className="gap-3 relative">
       <button
@@ -336,7 +356,7 @@
       <h2 class="text-2xl font-bold">{choice.title}</h2>
 
       <p class="text-sm">{choice.description}</p>
-      <p class="text-sm">Selection: None</p>
+      <p class="text-sm">Selection: {choiceSummary(choice)}</p>
 
       <div class="flex flex-col gap-3">
         {#if !isCollapsedList[i]}
