@@ -4,7 +4,6 @@
 
 This library builds the generic HTML file that once combined with a CYOA JSON configuration will present an interactive CYOA.
 
-
 ## Goals
 
 - quick
@@ -12,17 +11,17 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 - good mobile UX
 - configurable style
 - flexible form for many kinds of CYOA
-
+- styled scrollbar
 
 ### To Adds
 
-- build contents with links - clear & summary
+- code cleanup/clarity
 - mini point viewer for thin sidebar
 - mobile inspect cards
 - popup item viewer
 - JSON character export
 - git link
-- code cleanup/clarity
+- scroll sidebar
 
 ??
 - toast errors/can't afford, etc
@@ -30,4 +29,3 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 - custom footer link
 - orderable effect grouping
 - contents clear individual
-

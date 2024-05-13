@@ -33,7 +33,7 @@
 </script>
 
 <div
-  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-hidden`}
+  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-hidden z-10`}
 >
   <div class="flex justify-between p-1.5">
     <Button
