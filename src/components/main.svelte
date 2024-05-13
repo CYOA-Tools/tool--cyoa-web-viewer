@@ -346,101 +346,105 @@
   </Card>
 
   {#each config.choices as choice, i}
-    <Card className="gap-3 relative">
+    <Card className="relative">
       <button
         on:click={() => updateCollapsed(i, !isCollapsedList[i])}
-        class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min`}
+        class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min h-6 -mb-6`}
         ><Icon icon="gravity-ui:chevrons-collapse-vertical" /></button
       >
 
-      <h2 class="text-2xl font-bold">{choice.title}</h2>
-
-      <p class="text-sm">{choice.description}</p>
-      <p class="text-sm">Selection: {choiceSummary(choice)}</p>
-
       <div class="flex flex-col gap-3">
-        {#if !isCollapsedList[i]}
-          <div class="w-full h-px bg-black"></div>
-          {#if choice.style === "list"}
-            {#each choice.options as opt}
-              {@const isSelected = isOptionSelected(
-                opt,
-                currentChoices.selections[choice.title],
-                choice
-              )}
+        <h2 class="text-2xl font-bold">{choice.title}</h2>
 
-              <!-- LIST BTN -->
-              <button
-                class={`flex justify-between gap-3 xl:gap-6 border-2 p-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
-                on:click={() => onOptionSelect(opt, choice)}
-              >
-                <div class="flex flex-col gap-1.5 items-start">
-                  <h4 class="font-semibold">{opt.title}</h4>
-                  <p class="text-sm text-left">{opt.description}</p>
-                  <Cost {opt} />
-                </div>
-                <img src={opt.image} alt={choice.title} />
-              </button>
-            {/each}
-          {:else}
-            <div class="flex flex-wrap w-full gap-3 2xl:gap-6 justify-center">
+        <p class="text-sm">{choice.description}</p>
+        <p class="text-sm">Selection: {choiceSummary(choice)}</p>
+
+        <div class="flex flex-col gap-3">
+          {#if !isCollapsedList[i]}
+            <div class="w-full h-px bg-black"></div>
+            {#if choice.style === "list"}
               {#each choice.options as opt}
                 {@const isSelected = isOptionSelected(
                   opt,
                   currentChoices.selections[choice.title],
                   choice
                 )}
-                {@const multiValues = getMultiVaues(
-                  choice,
-                  currentChoices,
-                  opt
-                )}
 
-                <!-- BOXES BTN -->
+                <!-- LIST BTN -->
                 <button
-                  class={`w-full flex flex-col gap-3 border-2 rounded-lg md:w-64 lg:w-72 xl:w-80 overflow-hidden relative ${isSelected ? "border-red-600" : "border-black"}`}
+                  class={`flex justify-between gap-3 xl:gap-6 border-2 p-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
                   on:click={() => onOptionSelect(opt, choice)}
                 >
-                  {#if !!multiValues && !opt.unique}
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <div
-                      on:click={(e) => {
-                        e.stopPropagation();
-                      }}
-                      role="button"
-                      tabindex="-1000"
-                      class="absolute flex items-center gap-1.5 right-0 top-0 bg-black bg-opacity-60 rounded-bl-md p-0.5 px-1.5 text-sm text-white"
-                    >
-                      <span>x{multiValues}</span>
-                      <button
-                        on:click={(e) => {
-                          clearMulti(choice, opt);
-                          e.stopPropagation();
-                        }}
-                        ><Icon icon="ant-design:close-circle-filled" /></button
-                      >
-                    </div>
-                  {/if}
-                  <img
-                    class="w-full h-auto"
-                    src={opt.image}
-                    alt={choice.title}
-                  />
-
-                  <div
-                    class="flex-1 flex justify-between flex-col gap-1.5 items-start p-1.5 xl:p-3 xl:gap-3"
-                  >
-                    <div class="flex flex-col gap-1.5 xl:gap-3">
-                      <h4 class="font-semibold">{opt.title}</h4>
-                    </div>
+                  <div class="flex flex-col gap-1.5 items-start">
+                    <h4 class="font-semibold">{opt.title}</h4>
                     <p class="text-sm text-left">{opt.description}</p>
                     <Cost {opt} />
                   </div>
+                  <img src={opt.image} alt={choice.title} />
                 </button>
               {/each}
-            </div>
+            {:else}
+              <div class="flex flex-wrap w-full gap-3 2xl:gap-6 justify-center">
+                {#each choice.options as opt}
+                  {@const isSelected = isOptionSelected(
+                    opt,
+                    currentChoices.selections[choice.title],
+                    choice
+                  )}
+                  {@const multiValues = getMultiVaues(
+                    choice,
+                    currentChoices,
+                    opt
+                  )}
+
+                  <!-- BOXES BTN -->
+                  <button
+                    class={`w-full flex flex-col gap-3 border-2 rounded-lg md:w-64 lg:w-72 xl:w-80 overflow-hidden relative ${isSelected ? "border-red-600" : "border-black"}`}
+                    on:click={() => onOptionSelect(opt, choice)}
+                  >
+                    {#if !!multiValues && !opt.unique}
+                      <!-- svelte-ignore a11y-click-events-have-key-events -->
+                      <div
+                        on:click={(e) => {
+                          e.stopPropagation();
+                        }}
+                        role="button"
+                        tabindex="-1000"
+                        class="absolute flex items-center gap-1.5 right-0 top-0 bg-black bg-opacity-60 rounded-bl-md p-0.5 px-1.5 text-sm text-white"
+                      >
+                        <span>x{multiValues}</span>
+                        <button
+                          on:click={(e) => {
+                            clearMulti(choice, opt);
+                            e.stopPropagation();
+                          }}
+                          ><Icon
+                            icon="ant-design:close-circle-filled"
+                          /></button
+                        >
+                      </div>
+                    {/if}
+                    <img
+                      class="w-full h-auto"
+                      src={opt.image}
+                      alt={choice.title}
+                    />
+
+                    <div
+                      class="flex-1 flex justify-between flex-col gap-1.5 items-start p-1.5 xl:p-3 xl:gap-3"
+                    >
+                      <div class="flex flex-col gap-1.5 xl:gap-3">
+                        <h4 class="font-semibold">{opt.title}</h4>
+                      </div>
+                      <p class="text-sm text-left">{opt.description}</p>
+                      <Cost {opt} />
+                    </div>
+                  </button>
+                {/each}
+              </div>
+            {/if}
           {/if}
-        {/if}
+        </div>
       </div>
     </Card>
   {/each}
