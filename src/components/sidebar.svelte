@@ -3,7 +3,7 @@
   import Button from "./button.svelte";
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
-  import { SELECTION_TYPE, Choices } from "../stores/choices";
+  import { Choices } from "../stores/choices";
   import Sidecard from "./sidecard.svelte";
 
   const config = get(CYOAConfig);
@@ -21,15 +21,6 @@
   };
   let currentWidth = options.mid;
   let name = "Name";
-
-  function getSelectionType(selectionsItem) {
-    if (Array.isArray(selectionsItem)) {
-      return SELECTION_TYPE.uniqueMulti;
-    } else if (typeof selectionsItem === "object") {
-      return SELECTION_TYPE.multi;
-    }
-    return SELECTION_TYPE.uniqueOnce;
-  }
 </script>
 
 <div
@@ -38,23 +29,42 @@
   <div class="flex justify-between p-1.5">
     <Button
       onclick={() => (currentWidth = options.thin)}
-      className={currentWidth === options.thin ? "hidden" : ""}
+      className={currentWidth === options.thin ? "hidden" : "w-8"}
     >
       <Icon class="rotate-180" icon="fluent:arrow-next-12-filled" /></Button
     >
     <Button
       onclick={() => (currentWidth = options.mid)}
-      className={currentWidth === options.thin ? "hidden" : ""}
+      className={currentWidth === options.thin ? "hidden" : "w-8"}
       active={currentWidth === options.mid}
       ><Icon icon="fluent:arrow-left-32-filled" /></Button
     >
-    <Button
-      onclick={() => (currentWidth = options.wide)}
-      className={currentWidth === options.thin ? "absolute z-20" : ""}
-      active={currentWidth === options.wide}
+    <div
+      class={currentWidth === options.thin ? "absolute z-20 flex flex-col" : ""}
     >
-      <Icon icon="fluent:arrow-next-12-filled" />
-    </Button>
+      <Button
+        onclick={() => (currentWidth = options.wide)}
+        active={currentWidth === options.wide}
+        className="w-8"
+      >
+        <Icon icon="fluent:arrow-next-12-filled" />
+      </Button>
+
+      <div
+        class={currentWidth === options.thin
+          ? "p-1.5 py-0.5  bg-white mt-3 rounded-md border border-black text-sm"
+          : "hidden"}
+      >
+        {#each config.setup.points as pointTypes, index}
+          <div class="flex gap-2 items-center">
+            <span class={currentWidth === options.wide ? "hidden" : "block"}
+              >{pointTypes.name}</span
+            >
+            <span>{choices?.points?.[index] ?? pointTypes.startValue} </span>
+          </div>
+        {/each}
+      </div>
+    </div>
   </div>
 
   <div class="p-1.5 text-sm xl:text-base flex flex-col gap-2">

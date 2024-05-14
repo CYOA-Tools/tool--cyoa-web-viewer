@@ -1,6 +1,6 @@
 <script>
   export let onclick;
-  export let className;
+  export let className = "";
   export let active = false;
 </script>
 
