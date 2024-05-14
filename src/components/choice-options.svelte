@@ -299,7 +299,7 @@
         <h2 class="text-2xl font-bold">{choice.title}</h2>
 
         <p class="text-sm">{choice.description}</p>
-        <p class="text-sm">Selection: {choiceSummary(choice)}</p>
+        <p class="text-sm"><span class="underline decoration-double">Selection:</span> {choiceSummary(choice)}</p>
 
         <div class="flex flex-col gap-3">
           {#if !isCollapsedList[i]}

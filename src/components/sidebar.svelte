@@ -19,7 +19,7 @@
     mid: "mid",
     wide: "wide",
   };
-  let currentWidth = options.mid;
+  let currentWidth = options.thin;
   let name = "Name";
 </script>
 
@@ -35,7 +35,9 @@
     >
     <Button
       onclick={() => (currentWidth = options.mid)}
-      className={currentWidth === options.thin ? "hidden" : "w-8"}
+      className={currentWidth === options.thin
+        ? "hidden"
+        : "w-8 hidden sm:block"}
       active={currentWidth === options.mid}
       ><Icon icon="fluent:arrow-left-32-filled" /></Button
     >
@@ -110,11 +112,11 @@
 
           {#if isUniqueString}
             <div class="flex gap-2">
-              <b>{key}</b>
+              <span class="underline decoration-double">{key}</span>
               <span>{effect}</span>
             </div>
           {:else}
-            <b>{key}</b>
+            <span class="underline decoration-double">{key}</span>
             <div class="flex gap-2 flex-wrap">
               {#each effect as effectListItem}
                 {#if effectListItem.quantity !== 0}

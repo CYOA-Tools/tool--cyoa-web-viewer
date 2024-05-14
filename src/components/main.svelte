@@ -79,7 +79,7 @@
         {#each config.choices as choice}
           <a href={`#${choice.title}`}>
             <li>
-              <p class="flex justify-between gap-6 flex-wrap">
+              <p class="flex justify-between gap-1.5 flex-wrap">
                 <span class="underline">{choice.title}</span>
                 <span>{choiceSummary(choice)}</span>
               </p>

@@ -14,10 +14,7 @@
     Choices.set({
       points: config.setup.points.map((p) => p.startValue),
       selections: {},
-      effects: {
-        example: "eg-name",
-        stuff: [{ quantity: 1, name: "a thing", desc: "..." }],
-      },
+      effects: {},
     });
     textFontURL = config.style.import.text;
     familyMain = config.style.text.familyMain;

@@ -14,8 +14,6 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- mobile inspect cards
-- popup item viewer
 - JSON character export
 - git link
 - scroll sidebar
