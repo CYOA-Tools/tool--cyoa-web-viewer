@@ -11,7 +11,6 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 - good mobile UX
 - configurable style
 - flexible form for many kinds of CYOA
-- styled scrollbar
 
 ### To Adds
 

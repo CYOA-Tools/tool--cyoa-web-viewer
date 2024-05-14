@@ -45,7 +45,7 @@
 </script>
 
 <div
-  class={`w-full flex-1 flex flex-col gap-6 p-3 md:p-6 overflow-y-scroll h-screen`}
+  class={`w-full flex-1 flex flex-col gap-6 p-3 md:p-6 overflow-y-scroll h-screen scrollbar-custom`}
 >
   <Card className="gap-6">
     <div class="flex justify-between text-sm">

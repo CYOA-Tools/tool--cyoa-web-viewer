@@ -34,3 +34,19 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 0.825rem;
+  padding-right: 0.5rem;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 1px solid grey;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 0.5rem;
+  border: 0.25rem solid transparent;
+  /* width: 0.25rem; */
+  background-clip: content-box;
+}
