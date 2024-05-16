@@ -13,7 +13,10 @@
         "name": "SkP",
         "icon": "/icons/skill-points.png"
       }
-    ]
+    ],
+    "showGitLink": true,
+    "altLink" : "https://github.com/aronedwards91/CYOA-base",
+    "altLinkText": "ExLink"
   },
   "title": {
     "cyoaName": "Deep Forest CYOA",

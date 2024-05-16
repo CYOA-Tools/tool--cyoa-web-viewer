@@ -4,6 +4,7 @@
   import Card from "./card.svelte";
   import { SELECTION_TYPE, Choices } from "../stores/choices";
   import ChoiceOptions from "./choice-options.svelte";
+  import Icon from "@iconify/svelte";
 
   const config = get(CYOAConfig);
 
@@ -91,4 +92,29 @@
   </Card>
 
   <ChoiceOptions {currentChoices} {choiceSummary} {getSelectionType} />
+
+  <div class="flex justify-center gap-6">
+    {#if config.setup?.showGitLink}
+      <a
+        href="https://github.com/aronedwards91/CYOA-base"
+        class="flex gap-1 hover:underline"
+        rel="noopener noreferrer"
+        target="_blank"><Icon icon="mdi:github" height="1.5rem" /> Code Repo</a
+      >
+    {/if}
+    {#if config.setup?.altLink}
+      <a
+        href="https://github.com/aronedwards91/CYOA-base"
+        class="flex gap-1 hover:underline"
+        rel="noopener noreferrer"
+        target="_blank"
+        ><Icon icon="dashicons:admin-site-alt3" height="1.5rem" />
+        {#if config.setup?.altLinkText}
+          {config.setup?.altLinkText}
+        {:else}
+          Link
+        {/if}</a
+      >
+    {/if}
+  </div>
 </div>
