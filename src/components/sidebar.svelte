@@ -11,7 +11,6 @@
 
   Choices.subscribe((value) => {
     choices = value;
-    console.log("-->>SB - choices", { ...choices });
   });
 
   const options = {
@@ -24,7 +23,7 @@
 </script>
 
 <div
-  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-hidden z-10`}
+  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-x-hidden overflow-y-auto scrollbar-custom z-10`}
 >
   <div class="flex justify-between p-1.5">
     <Button

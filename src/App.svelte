@@ -31,7 +31,7 @@
   </main>
 {:then result}
   <main
-    class="w-full flex-1 flex h-full bg-slate-200 justify-stretch"
+    class="w-full flex-1 flex bg-slate-200 justify-stretch h-screen overflow-hidden"
     style="--textColor:{result.style.text.textColor};--familyMain:{result.style
       .text.familyMain}"
   >
