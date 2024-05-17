@@ -14,8 +14,8 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- check multi list
 - code cleanup/clarity
+- apply image to char profile
 
 ??
 - toast errors/can't afford, etc
