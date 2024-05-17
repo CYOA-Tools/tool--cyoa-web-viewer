@@ -5,6 +5,7 @@
   import { CYOAConfig } from "../stores/config";
   import { Choices } from "../stores/choices";
   import Sidecard from "./sidecard.svelte";
+  import { createFileFromObj } from "../utils/exportTools";
 
   const config = get(CYOAConfig);
   let choices = {};
@@ -20,6 +21,22 @@
   };
   let currentWidth = options.thin;
   let name = "Name";
+
+  function onExport() {
+    const exportObject = {
+      choices,
+      config: {
+        setup: config.setup,
+        title: config.title,
+        style: config.style,
+      },
+    };
+
+    createFileFromObj(
+      exportObject,
+      `${config.title.cyoaName.toLowerCase().replaceAll(" ", "-")}`
+    );
+  }
 </script>
 
 <div
@@ -68,7 +85,7 @@
     </div>
   </div>
 
-  <div class="p-1.5 text-sm xl:text-base flex flex-col gap-2">
+  <div class="p-1.5 text-sm xl:text-base flex flex-col gap-2 h-full">
     <Sidecard>
       <div class="flex gap-2">
         <label for="name">Name:</label>
@@ -141,6 +158,12 @@
         </Sidecard>
       {/each}
     {/key}
+
+    <div class="flex-1"></div>
+
+    <div class="text-center">
+      <Button onclick={onExport}>Export</Button>
+    </div>
   </div>
 </div>
 
