@@ -15,7 +15,7 @@
       }
     ],
     "showGitLink": true,
-    "altLink" : "https://github.com/aronedwards91/CYOA-base",
+    "altLink": "https://github.com/aronedwards91/CYOA-base",
     "altLinkText": "ExLink"
   },
   "title": {
@@ -40,7 +40,7 @@
       "options": [
         {
           "title": "Human Hunter",
-          "description": "You spent your days hunting & foraging, learning to track and move silently. Your expertise was often employed by men of the law to aid in the tracking of outlaws. You skill with the bow is unmatched. Gain a bow",
+          "description": "Your rugged boots have traversed countless miles of wildwood, leaving nary a footprint but those of your prey. With quiver full of arrows at your back and trusty spear in hand, you stalk the shadows with stealth as quiet as night. Your knwledge of stealth and tracking was often employed by men of the law to aid in the search for outlaws.",
           "image": "/images/archetype-human-hunter.webp",
           "cost": [0, 0],
           "effects": [
@@ -62,7 +62,8 @@
         },
         {
           "title": "Human Warrior",
-          "description": "Raised in the blood of battle you had once protected the lands of your lord from the violent beasts the prowl the land. Your fearlessness in battlewhen destroying corrupted beasts has made you an granted you the capacity to speak the tongue of deathwatch carrion crows.",
+          "description": "You are a warrior forged in the crucible of combat, every scar and bruise telling the tale of your unwavering courage! Your armor bears the scars of countless battles, as does your heart. With sword at side and shield emblazoned with the emblem of your fallen comrades, you charge into fray like a storm unleashed upon the land! What legends will you forge in these untamed realms? Will it be one of valor, or perhaps of vengeance? The gods themselves seem to whisper tales of your exploits, don't they?. Your fearlessness in battle when destroying corrupted beasts of this land has made you an ally of those who stand aside the plane of death, granting you the capacity to speak the tongue of the deathwatch carrion crows.",
+          "image": "/images/archetype-human-warrior.webp",
           "cost": [50, 0],
           "effects": [
             {
@@ -110,8 +111,8 @@
       "options": [
         {
           "title": "Origoth - the Cave City",
-          "description": "",
-          "image": "/images/origin-origoth-cave-city",
+          "description": "In the depths of the earth, the dwarven city of Origoth thrums with ancient power, its tunnels winding like veins through granite rock. Here, the stout-hearted folk forge their destiny amidst glittering crystals and precious metals. Yet beneath the surface, rival clans jostle for dominance in a struggle that echoes the very earth itself.",
+          "image": "/images/origin-origoth.webp",
           "cost": [50, 0],
           "effects": [
             {
@@ -132,8 +133,8 @@
         },
         {
           "title": "The Looming Spires",
-          "description": "...",
-          "image": "/images/origin-origoth-cave-city",
+          "description": "Here, pilgrims journey to honor the god of harvests, whose blessings have long nurtured the nearby forests through times of famine and plenty. But amidst this tranquility, a crisis brews - a bitter feud between neighboring monasteries over faith's finer points threatens to spill blood on sacred grounds, amid it's high walls the hermitage of Gorruk holds fast to its dwarven traditions, and religious fervor is beginning to boil over into petty squabbles and skirmishes!",
+          "image": "/images/origin-looming-spires.webp",
           "cost": [0, 0],
           "effects": [
             {
@@ -153,9 +154,9 @@
       "maxChoices": 3,
       "options": [
         {
-          "title": "Aefild 'Mad Axe' Erifson",
-          "description": "A seemingly quiet and unassuming man of strong stature, but once his blood has risen, his beserker rage can unnerve evens the most Stallwart warrior. Likes cats, hates bards.",
-          "image": "/images/ally-aefild",
+          "title": "Ragnar 'Thunderhammer' Erifson",
+          "description": "A gruff, battle-scarred dwarf with a heart of gold beneath his prickly exterior! When he lets loose with his trusty warhammer, the very earth shakes and giants tremble - but only after he's had his morning ale and a good belly laugh! A loyal ally to count on in the heat of battle. Just don't get him started on his least favorite topic: bards. The mere mention sends him stomping off in a huff, muttering something about 'too many notes'.",
+          "image": "/images/ally-ragnar.webp",
           "cost": [100, 0],
           "effects": [
             {
@@ -163,7 +164,7 @@
               "key": "Allies",
               "data": {
                 "quantity": 1,
-                "name": "Aefild 'Mad Axe' Erifson",
+                "name": "Ragnar 'Mad Axe' Erifson",
                 "desc": "A quiet man, quick to a powerful beserker rage. +cats, -bards"
               }
             }
@@ -171,8 +172,8 @@
         },
         {
           "title": "Karrick 'Steel' Olborn",
-          "description": "A grumpy dwarven drunkard, best known for his cunning and unorthodox methods of combat and problem solving, his plans always catch the enemy by surprise, but that desn't mean they'll work. Likes curvy women, hates sheriffs.",
-          "image": "/images/ally-aefild",
+          "description": "A foul-mouthed human with a penchant for causing chaos! His battle tactics are as unpredictable as his next hangover, leaving enemies reeling from one wild swing to the next. Though his strategies may not always succeed... they never fail to entertain! Just don't expect him to lend you any of his famous 'Riot's Revenge' ale after a long day of pillaging - unless you're buying! As for romance, he has a soft spot for curvaceous beauty and isn't afraid to show it.",
+          "image": "/images/ally-karrick.webp",
           "cost": [50, 0],
           "effects": [
             {
@@ -190,15 +191,15 @@
     },
     {
       "title": "Items",
-      "description": "The right equipment can keep you alive when teh tide turns against you.",
+      "description": "The right equipment can keep you alive when the tide turns against you.",
       "style": "boxes",
       "choicesUnique": false,
       "maxChoices": 10,
       "options": [
         {
           "title": "Elixir of heaven's dew",
-          "description": "A misty honey colored draught, gathered by the druids of the forbidden circle, this potion can cure it's drinker of mortal wounds, returning them to a youthful health within a few days of imbibement",
-          "image": "/images/item-heavens-elixir",
+          "description": "A misty but radiant, honey colored brew infused with the essence of dawn flowers and blessed by the morning sun goddess. Drink deep and let healing energies course through your veins - the perfect remedy for those seeking to cheat mortal fate! Just be warned, it' might just leave you feeling a bit too peppy come nightfall.",
+          "image": "/images/item-elixir.webp",
           "cost": [100, 0],
           "effects": [
             {
@@ -214,8 +215,8 @@
         },
         {
           "title": "Mechanical Talisman",
-          "description": "Can tell it's user of approaching dangers and which direction they are coming. Limited to slightly under a mile in range, but directionality decreases in accuracy at further ranges",
-          "image": "/images/item-heavens-elixir",
+          "description": "An ornate amulet that whispers ominous warnings to its wearer, telling it's user of approaching dangers and which direction they are coming. Of little use beyond a mile, and inaccurate beyond a hundred yards",
+          "image": "/images/item-talisman.webp",
           "cost": [100, 0],
           "unique": true,
           "effects": [

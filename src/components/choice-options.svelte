@@ -314,7 +314,7 @@
 
                 <!-- LIST BTN -->
                 <button
-                  class={`flex justify-between gap-3 xl:gap-6 border-2 p-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
+                  class={`flex flex-col xs:flex-row justify-between gap-3 xl:gap-6 border-2 p-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
                   on:click={() => onOptionSelect(opt, choice)}
                 >
                   <div class="flex flex-col gap-1.5 items-start">
@@ -322,7 +322,7 @@
                     <p class="text-sm text-left">{opt.description}</p>
                     <Cost {opt} />
                   </div>
-                  <img src={opt.image} alt={choice.title} />
+                  <img src={opt.image} alt={choice.title} class="h-40 border-4 border-black" />
                 </button>
               {/each}
             {:else}
