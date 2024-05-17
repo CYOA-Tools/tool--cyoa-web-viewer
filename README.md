@@ -14,10 +14,10 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- save/import
 - orderable effect grouping
 - selections section, clear all
 - selections section, clear individual
+- localstorage state save
 - extend styling
 
 ??

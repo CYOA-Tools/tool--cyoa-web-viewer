@@ -54,15 +54,6 @@
     return isSelected;
   }
 
-  function changePlayerImage(image) {
-    console.log("image", image);
-    Choices.update((current) => {
-      return {
-        ...current,
-      };
-    });
-  }
-
   function adjustEffect(
     isRemoveAction,
     currentEffects,

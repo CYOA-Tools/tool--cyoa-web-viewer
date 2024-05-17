@@ -5,10 +5,12 @@
   import { CYOAConfig } from "../stores/config";
   import { Choices } from "../stores/choices";
   import Sidecard from "./sidecard.svelte";
-  import { createFileFromObj } from "../utils/exportTools";
+  import { createFileFromObj } from "../utils/export-json";
+  import { runJSONFromUpload } from "../utils/import-json";
 
   const config = get(CYOAConfig);
   let choices = {};
+  let showImport = false;
 
   Choices.subscribe((value) => {
     choices = value;
@@ -36,6 +38,18 @@
       exportObject,
       `${config.title.cyoaName.toLowerCase().replaceAll(" ", "-")}`
     );
+  }
+
+  function onImport() {
+    runJSONFromUpload("import-json", (json) => {
+      Choices.update((current) => {
+
+        return ({
+          ...current,
+          ...json.choices
+        })
+      });
+    });
   }
 </script>
 
@@ -161,8 +175,22 @@
 
     <div class="flex-1"></div>
 
-    <div class="text-center">
+    <div class="text-center flex flex-wrap gap-3 mx-auto">
       <Button onclick={onExport}>Export</Button>
+      <div class="bg-white rounded-md flex flex-wrap">
+        <Button onclick={() => (showImport = true)}>Import</Button>
+        {#if showImport}
+          <div class="p-0.5 flex gap-1 items-center">
+            <input type="file" id="import-json" />
+            <Button
+              onclick={onImport}><Icon class="text-green-600" icon="mdi:import" /></Button
+            >
+            <Button onclick={() => (showImport = false)}
+              ><Icon icon="oi:collapse-left" /></Button
+            >
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </div>

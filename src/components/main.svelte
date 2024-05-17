@@ -11,7 +11,6 @@
   let currentChoices;
   Choices.subscribe((value) => {
     currentChoices = value;
-    console.log("value", value);
   });
 
   function getSelectionType(choice) {
