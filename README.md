@@ -14,12 +14,11 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- code cleanup/clarity
-- apply image to char profile
+- export json
+- orderable effect grouping
+- selections section, clear all
+- selections section, clear individual
 
 ??
 - toast errors/can't afford, etc
 - custom character image
-- custom footer link
-- orderable effect grouping
-- contents clear individual

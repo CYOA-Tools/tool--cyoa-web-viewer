@@ -37,6 +37,7 @@
       "style": "list",
       "choicesUnique": true,
       "maxChoices": 1,
+      "applyToPlayerImage": true,
       "options": [
         {
           "title": "Human Hunter",

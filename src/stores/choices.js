@@ -18,6 +18,7 @@ export const Choices = writable({
     // "Allies": [{ "quantity": 1, "name": "Dave", "desc": "..."}, {...}] - list
     // "Items": [{ "quantity": 1, "name": "item", "desc": "..."}] - list
   },
+  playerImage: false // or URL
 });
 
 export const SELECTION_TYPE = {

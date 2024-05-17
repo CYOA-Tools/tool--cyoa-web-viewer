@@ -54,6 +54,15 @@
     return isSelected;
   }
 
+  function changePlayerImage(image) {
+    console.log("image", image);
+    Choices.update((current) => {
+      return {
+        ...current,
+      };
+    });
+  }
+
   function adjustEffect(
     isRemoveAction,
     currentEffects,
@@ -118,6 +127,8 @@
     const choiceType = getSelectionType(choice);
 
     Choices.update((current) => {
+      if (choice.applyToPlayerImage) {
+      }
       const selections = { ...current.selections };
       let activeEffects = { ...current.effects };
 
@@ -244,6 +255,9 @@
         points,
         selections,
         effects: activeEffects,
+        playerImage: choice.applyToPlayerImage
+          ? `${location.origin}${option.image}`
+          : current.playerImage,
       };
     });
   }

@@ -76,28 +76,37 @@
       </div>
 
       <div class="flex gap-2">
-        <img src="" alt="character-icon" />
+        <img
+          src={choices.playerImage}
+          alt="character-icon"
+          class="w-1/2 border-2 border-black"
+        />
 
         <div class="flex flex-col gap-2">
           {#each config.setup.points as pointTypes, index}
-            <div class="flex gap-2 items-center">
-              {#if !!pointTypes.icon}
-                <img
-                  src={pointTypes.icon}
-                  alt="points icon"
-                  class={currentWidth === options.wide ? "h-8" : "h-4"}
-                />
-              {/if}
-              <span class={currentWidth === options.wide ? "block" : "hidden"}
-                >{pointTypes.fullName}</span
-              >
-              <span class={currentWidth === options.wide ? "hidden" : "block"}
-                >{pointTypes.name}</span
-              >
-              <span
-                ><b>{choices?.points?.[index] ?? pointTypes.startValue}</b
-                >/{pointTypes.startValue}</span
-              >
+            <div
+              class={`flex  ${currentWidth === options.wide ? "flex-row gap-2 items-center" : "flex-col-reverse gap-0.5 items-start"}`}
+            >
+              <div class="flex gap-2 items-center">
+                {#if !!pointTypes.icon}
+                  <img
+                    src={pointTypes.icon}
+                    alt="points icon"
+                    class={currentWidth === options.wide ? "h-8" : "h-4"}
+                  />
+                {/if}
+                <span class={currentWidth === options.wide ? "block" : "hidden"}
+                  >{pointTypes.fullName}</span
+                >
+                <span class={currentWidth === options.wide ? "hidden" : "block"}
+                  >{pointTypes.name}</span
+                >
+              </div>
+              <span>
+                <b>{choices?.points?.[index] ?? pointTypes.startValue}</b><span
+                  >/{pointTypes.startValue}</span
+                >
+              </span>
             </div>
           {/each}
         </div>
