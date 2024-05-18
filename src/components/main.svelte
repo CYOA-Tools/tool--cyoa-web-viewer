@@ -8,6 +8,9 @@
   import Button from "./button.svelte";
 
   const config = get(CYOAConfig);
+  const mainStyle = config.style?.main;
+  const rootStyle = `background:${mainStyle?.backgroundColor ?? "transparent"};color:${mainStyle?.textColor ?? "#000"}`;
+  const cardStyle = `background:${mainStyle?.cardColor ?? "transparent"};border-style:${mainStyle?.cardBorderColor ?? "black"};border-radius:${mainStyle?.cardBorderRadius ?? "0.5rem"};border-width:${mainStyle?.cardBorderWidth ?? "1px"}`;
 
   let currentChoices;
   Choices.subscribe((value) => {
@@ -53,9 +56,10 @@
 </script>
 
 <div
+  style={rootStyle}
   class={`w-full flex-1 flex flex-col gap-6 p-3 md:p-6 overflow-y-scroll h-screen scrollbar-custom`}
 >
-  <Card className="gap-6">
+  <Card style={cardStyle} className="gap-6">
     <div class="flex justify-between text-sm">
       <span>{config.title?.tagline}</span>
       <span>By {config.title?.author}</span>
@@ -65,7 +69,7 @@
     <h1 class="text-2xl">{config.title?.cyoaName}</h1>
   </Card>
 
-  <Card className="gap-3">
+  <Card style={cardStyle} className="gap-3">
     <h2 class="text-lg">{config.intro?.title}</h2>
 
     <p class="cols lg:columns-2 xl:columns-3 text-sm">
@@ -79,11 +83,13 @@
     <p class="text-sm">{config.intro?.subtitle}</p>
   </Card>
 
-  <Card className="">
+  <Card style={cardStyle}>
     <div class="flex justify-between items-center mb-2">
       <h2 class="text-lg">Selections</h2>
 
-      <Button onclick={onReset} className="py-0.5">Reset</Button>
+      <Button style={cardStyle} onclick={onReset} className="py-0.5"
+        >Reset</Button
+      >
     </div>
 
     <ul class="list-disc pl-8">
@@ -102,7 +108,12 @@
     </ul>
   </Card>
 
-  <ChoiceOptions {currentChoices} {choiceSummary} {getSelectionType} />
+  <ChoiceOptions
+    {cardStyle}
+    {currentChoices}
+    {choiceSummary}
+    {getSelectionType}
+  />
 
   <div class="flex justify-center gap-6">
     {#if config.setup?.showGitLink}

@@ -9,8 +9,15 @@
   export let currentChoices;
   export let choiceSummary;
   export let getSelectionType;
+  export let cardStyle;
 
   const config = get(CYOAConfig);
+  const mainStyle = config.style?.main;
+
+  const selectionStyle = `border:${mainStyle?.selectionBorder ?? "transparent"};background:${mainStyle?.selectionBg ?? "transparent"}`;
+  const unselectionStyle = `border:${mainStyle?.unselectionBorder ?? "1px solid transparent"};background:${mainStyle?.unselectionBg ?? "transparent"};`;
+  const unselectionBoxStyle = `border:${mainStyle?.unselectionBoxBorder ?? "1px solid transparent"};background:${mainStyle?.unselectionBoxBg ?? "transparent"};`;
+
   let isCollapsedList = config?.choices?.map(() => false) ?? [];
 
   function updateCollapsed(i, setCollapsed = true) {
@@ -293,10 +300,10 @@
 
 {#key currentChoices}
   {#each config.choices as choice, i}
-    <Card className="relative">
+    <Card style={cardStyle} className="relative">
       <button
         on:click={() => updateCollapsed(i, !isCollapsedList[i])}
-        class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min h-6 -mb-6`}
+        class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min h-6 -mb-6 z-20`}
         ><Icon icon="gravity-ui:chevrons-collapse-vertical" /></button
       >
 
@@ -328,6 +335,7 @@
                 <!-- LIST BTN -->
                 <button
                   class={`relative flex flex-col xs:flex-row justify-between gap-3 xl:gap-6 border-2 pl-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
+                  style={isSelected ? selectionStyle : unselectionStyle}
                   on:click={() => onOptionSelect(opt, choice)}
                 >
                   {#if !!multiValues && !opt.unique}
@@ -379,6 +387,7 @@
                   <!-- BOXES BTN -->
                   <button
                     class={`w-full flex flex-col gap-3 border-2 rounded-lg md:w-64 lg:w-72 xl:w-80 overflow-hidden relative ${isSelected ? "border-red-600" : "border-black"}`}
+                    style={isSelected ? selectionStyle : unselectionBoxStyle}
                     on:click={() => onOptionSelect(opt, choice)}
                   >
                     {#if !!multiValues && !opt.unique}
