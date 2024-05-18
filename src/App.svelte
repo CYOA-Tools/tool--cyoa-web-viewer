@@ -4,7 +4,7 @@
   import Main from "./components/main.svelte";
   import { CYOAConfig } from "./stores/config";
   import { Choices } from "./stores/choices";
-  import { getFromLocalStorage } from "./stores/localStorage";
+  import { getFromLocalStorage } from "./stores/local-storage";
 
   let fetchJson = fetch("form-config.json").then((res) => res.json());
   let textFontURL;

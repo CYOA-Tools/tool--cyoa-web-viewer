@@ -14,7 +14,6 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- extend styling - sidebar
 - extend styling - main
 - extend styling - card
 

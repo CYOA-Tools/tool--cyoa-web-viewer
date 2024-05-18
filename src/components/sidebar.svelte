@@ -7,9 +7,13 @@
   import Sidecard from "./sidecard.svelte";
   import { createFileFromObj } from "../utils/export-json";
   import { runJSONFromUpload } from "../utils/import-json";
-  import { objectToLocalStorage } from "../stores/localStorage";
+  import { objectToLocalStorage } from "../stores/local-storage";
 
   const config = get(CYOAConfig);
+  const sidebarStyle = config.style?.sidebar;
+  const cardStyle = `${sidebarStyle?.cardColor && "background:" + sidebarStyle?.cardColor};${sidebarStyle?.cardBorderColor && "border-style:" + sidebarStyle?.cardBorderColor};${sidebarStyle?.cardBorderRadius && "border-radius:" + sidebarStyle?.cardBorderRadius};${sidebarStyle?.cardBorderWidth && "border-width:" + sidebarStyle?.cardBorderWidth}`;
+  const rootStyle = `${sidebarStyle?.backgroundColor && "background:" + sidebarStyle?.backgroundColor};${sidebarStyle?.textColor && "color:" + sidebarStyle?.textColor}`;
+
   let choices = {};
   let showImport = false;
   let choiceEffects = [];
@@ -34,7 +38,7 @@
       effectKeys.push(key);
     });
 
-    objectToLocalStorage(choices)
+    objectToLocalStorage(choices);
   });
 
   const options = {
@@ -75,16 +79,19 @@
 
 <div
   class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-x-hidden overflow-y-auto scrollbar-custom z-10`}
+  style={rootStyle}
 >
   <div class="flex justify-between p-1.5">
     <Button
       onclick={() => (currentWidth = options.thin)}
+      style={cardStyle}
       className={currentWidth === options.thin ? "hidden" : "w-8"}
     >
       <Icon class="rotate-180" icon="fluent:arrow-next-12-filled" /></Button
     >
     <Button
       onclick={() => (currentWidth = options.mid)}
+      style={cardStyle}
       className={currentWidth === options.thin
         ? "hidden"
         : "w-8 hidden sm:block"}
@@ -96,14 +103,16 @@
     >
       <Button
         onclick={() => (currentWidth = options.wide)}
+        style={cardStyle}
         active={currentWidth === options.wide}
         className="w-8"
       >
         <Icon icon="fluent:arrow-next-12-filled" />
       </Button>
 
-      <div
-        class={currentWidth === options.thin
+      <Sidecard
+        style={cardStyle}
+        className={currentWidth === options.thin
           ? "p-1.5 py-0.5  bg-white mt-3 rounded-md border border-black text-sm"
           : "hidden"}
       >
@@ -115,12 +124,12 @@
             <span>{choices?.points?.[index] ?? pointTypes.startValue} </span>
           </div>
         {/each}
-      </div>
+      </Sidecard>
     </div>
   </div>
 
   <div class="p-1.5 text-sm xl:text-base flex flex-col gap-2 h-full">
-    <Sidecard>
+    <Sidecard style={cardStyle}>
       <div class="flex gap-2">
         <label for="name">Name:</label>
         <input id="name" bind:value={name} class="w-full rounded-md" />
@@ -167,7 +176,7 @@
     {#key choices}
       {#each choiceEffects as effect, i}
         {@const key = effectKeys[i]}
-        <Sidecard>
+        <Sidecard style={cardStyle}>
           {@const isUniqueString = typeof effect === "string"}
 
           {#if isUniqueString}
@@ -197,16 +206,18 @@
     <div class="flex-1"></div>
 
     <div class="text-center flex flex-wrap gap-3 mx-auto">
-      <Button onclick={onExport}>Export</Button>
+      <Button onclick={onExport} style={cardStyle}>Export</Button>
       <div class="bg-white rounded-md flex flex-wrap">
-        <Button onclick={() => (showImport = true)}>Import</Button>
+        <Button onclick={() => (showImport = true)} style={cardStyle}
+          >Import</Button
+        >
         {#if showImport}
           <div class="p-0.5 flex gap-1 items-center">
             <input type="file" id="import-json" />
-            <Button onclick={onImport}
+            <Button onclick={onImport} style={cardStyle}
               ><Icon class="text-green-600" icon="mdi:import" /></Button
             >
-            <Button onclick={() => (showImport = false)}
+            <Button onclick={() => (showImport = false)} style={cardStyle}
               ><Icon icon="oi:collapse-left" /></Button
             >
           </div>
