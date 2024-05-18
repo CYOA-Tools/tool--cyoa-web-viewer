@@ -16,7 +16,8 @@
     ],
     "showGitLink": true,
     "altLink": "https://github.com/aronedwards91/CYOA-base",
-    "altLinkText": "ExLink"
+    "altLinkText": "ExLink",
+    "effectOrdering": ["Archetype", "Origin", "Allies", "Languages", "Items"]
   },
   "title": {
     "cyoaName": "Deep Forest CYOA",

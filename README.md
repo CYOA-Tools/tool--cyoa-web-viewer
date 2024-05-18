@@ -14,7 +14,6 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ### To Adds
 
-- orderable effect grouping
 - selections section, clear all
 - selections section, clear individual
 - localstorage state save

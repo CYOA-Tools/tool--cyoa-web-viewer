@@ -11,9 +11,27 @@
   const config = get(CYOAConfig);
   let choices = {};
   let showImport = false;
+  let choiceEffects = [];
+  let effectKeys = [];
 
   Choices.subscribe((value) => {
     choices = value;
+    choiceEffects = [];
+    effectKeys = [];
+    const tempEffects = { ...choices.effects };
+
+    config.setup?.effectOrdering.forEach((elementKey) => {
+      if (!!tempEffects[elementKey]) {
+        effectKeys.push(elementKey);
+        choiceEffects.push(tempEffects[elementKey]);
+        delete tempEffects[elementKey];
+      }
+    });
+
+    Object.entries(tempEffects).forEach(([key, effect]) => {
+      choiceEffects.push(effect);
+      effectKeys.push(key);
+    });
   });
 
   const options = {
@@ -43,11 +61,10 @@
   function onImport() {
     runJSONFromUpload("import-json", (json) => {
       Choices.update((current) => {
-
-        return ({
+        return {
           ...current,
-          ...json.choices
-        })
+          ...json.choices,
+        };
       });
     });
   }
@@ -145,7 +162,8 @@
     >
 
     {#key choices}
-      {#each Object.entries(choices.effects) as [key, effect]}
+      {#each choiceEffects as effect, i}
+        {@const key = effectKeys[i]}
         <Sidecard>
           {@const isUniqueString = typeof effect === "string"}
 
@@ -182,8 +200,8 @@
         {#if showImport}
           <div class="p-0.5 flex gap-1 items-center">
             <input type="file" id="import-json" />
-            <Button
-              onclick={onImport}><Icon class="text-green-600" icon="mdi:import" /></Button
+            <Button onclick={onImport}
+              ><Icon class="text-green-600" icon="mdi:import" /></Button
             >
             <Button onclick={() => (showImport = false)}
               ><Icon icon="oi:collapse-left" /></Button
