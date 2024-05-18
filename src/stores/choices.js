@@ -6,7 +6,7 @@ import { writable } from "svelte/store";
  * @type {import(‘svelte/store’).Writable<any>
  */
 export const Choices = writable({
-  points: [],
+  points: [], // [200, 3]
   selections: {
     // SELECTION_TYPE
     // "Character Archetype": "Human Guy" - choicesUnique, maxChoices = 1
@@ -20,6 +20,13 @@ export const Choices = writable({
   },
   playerImage: false // or URL
 });
+
+export const ChoiceDefault = {
+  points: [],
+  selections:{},
+  effects: {},
+  playerImage: false
+}
 
 export const SELECTION_TYPE = {
   uniqueOnce: "uniqueOnce",

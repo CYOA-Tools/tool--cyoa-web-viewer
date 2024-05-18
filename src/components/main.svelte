@@ -2,9 +2,10 @@
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
   import Card from "./card.svelte";
-  import { SELECTION_TYPE, Choices } from "../stores/choices";
+  import { SELECTION_TYPE, Choices, ChoiceDefault } from "../stores/choices";
   import ChoiceOptions from "./choice-options.svelte";
   import Icon from "@iconify/svelte";
+  import Button from "./button.svelte";
 
   const config = get(CYOAConfig);
 
@@ -42,6 +43,13 @@
     }
     return "None";
   }
+
+  function onReset() {
+    Choices.update(() => ({
+      ...ChoiceDefault,
+      points: config.setup.points.map((p) => p.startValue),
+    }));
+  }
 </script>
 
 <div
@@ -72,7 +80,11 @@
   </Card>
 
   <Card className="">
-    <h2 class="text-lg">Selections</h2>
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-lg">Selections</h2>
+
+      <Button onclick={onReset} className="py-0.5">Reset</Button>
+    </div>
 
     <ul class="list-disc pl-8">
       {#key currentChoices}
