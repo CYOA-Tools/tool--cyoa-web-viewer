@@ -56,6 +56,7 @@
         setup: config.setup,
         title: config.title,
         style: config.style,
+        url: location.href
       },
     };
 

@@ -20,6 +20,9 @@
     });
     textFontURL = config.style.import.text;
     familyMain = config.style.text.familyMain;
+
+    document.querySelector("html").style.fontSize =
+      config.style.text.rootSize ?? "16px";
   });
 </script>
 
@@ -34,19 +37,10 @@
 {:then result}
   <main
     class="w-full flex-1 flex bg-slate-200 justify-stretch h-screen overflow-hidden"
-    style="--textColor:{result.style.text.textColor};--familyMain:{result.style
-      .text.familyMain}"
+    style="color:{result.style.text.textColor ?? 'black'};font-family:{result
+      .style.text.familyMain ?? 'sans'};"
   >
     <Sidebar />
     <Main />
   </main>
 {/await}
-
-<style>
-  :global(main) {
-    color: var(--textColor);
-    font-family: var(--familyMain);
-    /* font-weight: 400; */
-    font-style: normal;
-  }
-</style>

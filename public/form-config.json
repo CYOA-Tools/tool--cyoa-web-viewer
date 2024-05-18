@@ -242,6 +242,7 @@
     },
     "text": {
       "familyMain": "'Sedan SC', sans",
+      "rootSize": "18px",
       "textColor": "#000"
     },
     "sidebar": {
