@@ -7,6 +7,7 @@
   import Sidecard from "./sidecard.svelte";
   import { createFileFromObj } from "../utils/export-json";
   import { runJSONFromUpload } from "../utils/import-json";
+  import { objectToLocalStorage } from "../stores/localStorage";
 
   const config = get(CYOAConfig);
   let choices = {};
@@ -32,6 +33,8 @@
       choiceEffects.push(effect);
       effectKeys.push(key);
     });
+
+    objectToLocalStorage(choices)
   });
 
   const options = {

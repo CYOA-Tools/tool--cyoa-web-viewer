@@ -4,6 +4,7 @@
   import Main from "./components/main.svelte";
   import { CYOAConfig } from "./stores/config";
   import { Choices } from "./stores/choices";
+  import { getFromLocalStorage } from "./stores/localStorage";
 
   let fetchJson = fetch("form-config.json").then((res) => res.json());
   let textFontURL;
@@ -15,6 +16,7 @@
       points: config.setup.points.map((p) => p.startValue),
       selections: {},
       effects: {},
+      ...getFromLocalStorage(),
     });
     textFontURL = config.style.import.text;
     familyMain = config.style.text.familyMain;
