@@ -133,7 +133,7 @@
     <Sidecard style={cardStyle}>
       <div class="flex gap-2">
         <label for="name">Name:</label>
-        <input id="name" bind:value={name} class="w-full rounded-md" />
+        <input id="name" bind:value={name} class="w-full rounded-md text-black px-1" />
       </div>
 
       <div class="flex gap-2">
