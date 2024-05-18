@@ -56,7 +56,7 @@
         setup: config.setup,
         title: config.title,
         style: config.style,
-        url: location.href
+        url: location.href,
       },
     };
 
@@ -133,15 +133,21 @@
     <Sidecard style={cardStyle}>
       <div class="flex gap-2">
         <label for="name">Name:</label>
-        <input id="name" bind:value={name} class="w-full rounded-md text-black px-1" />
+        <input
+          id="name"
+          bind:value={name}
+          class="w-full rounded-md text-black px-1"
+        />
       </div>
 
       <div class="flex gap-2">
-        <img
-          src={choices.playerImage}
-          alt="character-icon"
-          class="w-1/2 border-2 border-black"
-        />
+        {#if !!choices.playerImage}
+          <img
+            src={choices.playerImage}
+            alt="character-icon"
+            class="w-1/2 border-2 border-black"
+          />
+        {/if}
 
         <div class="flex flex-col gap-2">
           {#each config.setup.points as pointTypes, index}

@@ -234,6 +234,46 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Skills",
+      "description": "You are no ordinary man, your training has developed within you rare skills.",
+      "style": "boxes",
+      "choicesUnique": true,
+      "maxChoices": 2,
+      "options": [
+        {
+          "title": "Tactician",
+          "description": "You have a powerful capacity for tactical thinking",
+          "cost": [0, 2],
+          "effects": [
+            {
+              "type": "list",
+              "key": "skill",
+              "data": {
+                "quantity": 1,
+                "name": "Tactician",
+                "desc": "Seasoned and capable tactician"
+              }
+            }
+          ]
+        },{
+          "title": "Druidic Shapeshifter",
+          "description": "You have the capacity to change your form into that of a wolf or a bear",
+          "cost": [0, 3],
+          "effects": [
+            {
+              "type": "list",
+              "key": "skill",
+              "data": {
+                "quantity": 1,
+                "name": "Shapeshift",
+                "desc": "Shapeshift between wolf and bear"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "style": {

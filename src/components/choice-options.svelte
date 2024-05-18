@@ -412,11 +412,13 @@
                         >
                       </div>
                     {/if}
-                    <img
-                      class="w-full h-auto"
-                      src={opt.image}
-                      alt={choice.title}
-                    />
+                    {#if opt.image}
+                      <img
+                        class="w-full h-auto"
+                        src={opt.image}
+                        alt={choice.title}
+                      />
+                    {/if}
 
                     <div
                       class="flex-1 flex justify-between flex-col gap-1.5 items-start p-1.5 xl:p-3 xl:gap-3"
