@@ -59,7 +59,7 @@
   style={rootStyle}
   class={`w-full flex-1 flex flex-col gap-6 p-3 md:p-6 overflow-y-scroll h-screen scrollbar-custom`}
 >
-  <Card style={cardStyle} className="gap-6">
+  <Card style={cardStyle} className="gap-6" id="section--title">
     <div class="flex justify-between text-sm">
       <span>{config.title?.tagline}</span>
       <span>By {config.title?.author}</span>
@@ -69,7 +69,7 @@
     <h1 class="text-2xl">{config.title?.cyoaName}</h1>
   </Card>
 
-  <Card style={cardStyle} className="gap-6">
+  <Card style={cardStyle} className="gap-6" id="section--intro">
     <h2 class="text-lg mx-auto">{config.intro?.title}</h2>
 
     <p class="cols lg:columns-2 max-w-3xl text-sm mx-auto para">
@@ -83,7 +83,7 @@
     <p class="text-sm mx-auto para">{config.intro?.subtitle}</p>
   </Card>
 
-  <Card style={cardStyle}>
+  <Card style={cardStyle} id="section--selections">
     <div class="flex justify-between items-center mb-2">
       <h2 class="text-lg">Selections</h2>
 

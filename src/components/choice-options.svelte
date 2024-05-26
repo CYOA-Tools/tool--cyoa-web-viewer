@@ -300,7 +300,7 @@
 
 {#key currentChoices}
   {#each config.choices as choice, i}
-    <Card style={cardStyle} className="relative">
+    <Card style={cardStyle} className="relative" id="section-{choice.title.toLowerCase().replace(/\s/g, "-")}">
       <button
         on:click={() => updateCollapsed(i, !isCollapsedList[i])}
         class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min h-6 -mb-6 z-20`}
