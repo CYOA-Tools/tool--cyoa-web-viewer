@@ -61,5 +61,6 @@
     letter-spacing: var(--letter-spacing);
     font-family: var(--font-family);
     max-width: 720px;
+    white-space: pre-line;
   }
 </style>
