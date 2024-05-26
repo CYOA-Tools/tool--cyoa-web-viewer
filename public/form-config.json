@@ -15,8 +15,8 @@
         "icon": "/icons/skill-points.png"
       }
     ],
-    "showGitLink": true,
-    "altLink": "https://github.com/aronedwards91/CYOA-base",
+    "hideGitLink": false,
+    "altLink": "https://github.com/CYOA-Tools/tool--cyoa-web-viewer",
     "altLinkText": "ExLink",
     "effectOrdering": ["Archetype", "Origin", "Allies", "Languages", "Items"]
   },

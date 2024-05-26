@@ -116,9 +116,9 @@
   />
 
   <div class="flex justify-center gap-6">
-    {#if config.setup?.showGitLink}
+    {#if !config.setup?.hideGitLink}
       <a
-        href="https://github.com/aronedwards91/CYOA-base"
+        href="https://github.com/CYOA-Tools/tool--cyoa-web-viewer"
         class="flex gap-1 hover:underline"
         rel="noopener noreferrer"
         target="_blank"><Icon icon="mdi:github" height="1.5rem" /> Code Repo</a
@@ -126,7 +126,7 @@
     {/if}
     {#if config.setup?.altLink}
       <a
-        href="https://github.com/aronedwards91/CYOA-base"
+        href={config.setup?.altLink}
         class="flex gap-1 hover:underline"
         rel="noopener noreferrer"
         target="_blank"
