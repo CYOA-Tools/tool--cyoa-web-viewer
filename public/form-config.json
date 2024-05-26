@@ -27,7 +27,7 @@
   },
   "intro": {
     "title": "Welcome to the example",
-    "introText": "lorem epsum df hsd fhsd fklsd fhaldksfh asf dfv jhasf ghs j",
+    "introText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
     "subtitle": "You start with 1000 MP, choose wisely",
     "baseImage": "/images/base-image.webp"
   },
@@ -42,7 +42,7 @@
       "options": [
         {
           "title": "Human Hunter",
-          "description": "Your rugged boots have traversed countless miles of wildwood, leaving nary a footprint but those of your prey. With quiver full of arrows at your back and trusty spear in hand, you stalk the shadows with stealth as quiet as night. Your knwledge of stealth and tracking was often employed by men of the law to aid in the search for outlaws.",
+          "description": "Your rugged boots have traversed countless miles of wildwood, leaving nary a footprint but those of your prey. With quiver full of arrows at your back and trusty spear in hand, you stalk the shadows with stealth as quiet as night. Your knowledge of stealth and tracking was often employed by men of the law to aid in the search for outlaws.",
           "image": "/images/archetype-human-hunter.webp",
           "cost": [0, 0],
           "effects": [
@@ -284,6 +284,11 @@
       "familyMain": "'Sedan SC', sans",
       "rootSize": "18px",
       "textColor": "#000"
+    },
+    "paragraph": {
+      "lineHeight": "1.7",
+      "letterSpacing": "1.8px",
+      "fontFamily": "Georgia, serif"
     },
     "main": {
       "backgroundColor": "linear-gradient(61deg, rgba(73,101,1,1) -20%, rgba(92,123,20,1) 57%, rgba(2,60,64,1) 130%);",

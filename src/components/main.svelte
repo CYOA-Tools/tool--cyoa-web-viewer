@@ -70,9 +70,9 @@
   </Card>
 
   <Card style={cardStyle} className="gap-6">
-    <h2 class="text-lg">{config.intro?.title}</h2>
+    <h2 class="text-lg mx-auto">{config.intro?.title}</h2>
 
-    <p class="cols lg:columns-2 max-w-3xl text-sm mx-auto">
+    <p class="cols lg:columns-2 max-w-3xl text-sm mx-auto para">
       {config.intro?.introText}
     </p>
     <img
@@ -80,7 +80,7 @@
       alt="intro base"
       class="max-w-4xl mx-auto w-full"
     />
-    <p class="text-sm mx-auto">{config.intro?.subtitle}</p>
+    <p class="text-sm mx-auto para">{config.intro?.subtitle}</p>
   </Card>
 
   <Card style={cardStyle}>

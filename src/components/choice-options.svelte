@@ -310,7 +310,7 @@
       <div class="flex flex-col gap-3" id={choice.title}>
         <h2 class="text-2xl font-bold">{choice.title}</h2>
 
-        <p class="text-sm">{choice.description}</p>
+        <p class="text-sm para">{choice.description}</p>
         <p class="text-sm">
           <span class="underline decoration-double">Selection:</span>
           {choiceSummary(choice)}
@@ -320,56 +320,60 @@
           {#if !isCollapsedList[i]}
             <div class="w-full h-px bg-black"></div>
             {#if choice.style === "list"}
-              {#each choice.options as opt}
-                {@const isSelected = isOptionSelected(
-                  opt,
-                  currentChoices.selections[choice.title],
-                  choice
-                )}
-                {@const multiValues = getMultiVaues(
-                  choice,
-                  currentChoices,
-                  opt
-                )}
+              <div class="flex flex-col gap-3 items-center">
+                {#each choice.options as opt}
+                  {@const isSelected = isOptionSelected(
+                    opt,
+                    currentChoices.selections[choice.title],
+                    choice
+                  )}
+                  {@const multiValues = getMultiVaues(
+                    choice,
+                    currentChoices,
+                    opt
+                  )}
 
-                <!-- LIST BTN -->
-                <button
-                  class={`relative flex flex-col xs:flex-row justify-between gap-3 xl:gap-6 border-2 pl-1.5 ${isSelected ? "border-red-600" : "border-transparent"}`}
-                  style={isSelected ? selectionStyle : unselectionStyle}
-                  on:click={() => onOptionSelect(opt, choice)}
-                >
-                  {#if !!multiValues && !opt.unique}
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
-                    <div
-                      on:click={(e) => {
-                        e.stopPropagation();
-                      }}
-                      role="button"
-                      tabindex="-1000"
-                      class="absolute flex items-center gap-1.5 right-0 top-0 bg-black bg-opacity-60 rounded-bl-md p-0.5 px-1.5 text-sm text-white"
-                    >
-                      <span>x{multiValues}</span>
-                      <button
+                  <!-- LIST BTN -->
+                  <button
+                    class={`relative flex flex-col xs:flex-row justify-between gap-3 xl:gap-6 border-2 pl-1.5 w-full max-w-5xl ${isSelected ? "border-red-600" : "border-transparent"}`}
+                    style={isSelected ? selectionStyle : unselectionStyle}
+                    on:click={() => onOptionSelect(opt, choice)}
+                  >
+                    {#if !!multiValues && !opt.unique}
+                      <!-- svelte-ignore a11y-click-events-have-key-events -->
+                      <div
                         on:click={(e) => {
-                          clearMulti(choice, opt);
                           e.stopPropagation();
                         }}
-                        ><Icon icon="ant-design:close-circle-filled" /></button
+                        role="button"
+                        tabindex="-1000"
+                        class="absolute flex items-center gap-1.5 right-0 top-0 bg-black bg-opacity-60 rounded-bl-md p-0.5 px-1.5 text-sm text-white"
                       >
+                        <span>x{multiValues}</span>
+                        <button
+                          on:click={(e) => {
+                            clearMulti(choice, opt);
+                            e.stopPropagation();
+                          }}
+                          ><Icon
+                            icon="ant-design:close-circle-filled"
+                          /></button
+                        >
+                      </div>
+                    {/if}
+                    <div class="flex flex-col gap-1.5 items-start py-1.5">
+                      <h4 class="font-semibold">{opt.title}</h4>
+                      <p class="text-sm text-left para">{opt.description}</p>
+                      <Cost {opt} />
                     </div>
-                  {/if}
-                  <div class="flex flex-col gap-1.5 items-start py-1.5">
-                    <h4 class="font-semibold">{opt.title}</h4>
-                    <p class="text-sm text-left">{opt.description}</p>
-                    <Cost {opt} />
-                  </div>
-                  <img
-                    src={opt.image}
-                    alt={choice.title}
-                    class="h-40 border-4 border-black"
-                  />
-                </button>
-              {/each}
+                    <img
+                      src={opt.image}
+                      alt={choice.title}
+                      class="border-4 border-black max-w-40"
+                    />
+                  </button>
+                {/each}
+              </div>
             {:else}
               <div class="flex flex-wrap w-full gap-3 2xl:gap-6 justify-center">
                 {#each choice.options as opt}
@@ -425,8 +429,8 @@
                     >
                       <div class="flex flex-col gap-1.5 xl:gap-3">
                         <h4 class="font-semibold">{opt.title}</h4>
+                        <p class="text-sm text-left para">{opt.description}</p>
                       </div>
-                      <p class="text-sm text-left">{opt.description}</p>
                       <Cost {opt} />
                     </div>
                   </button>
