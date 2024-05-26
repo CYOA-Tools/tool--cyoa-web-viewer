@@ -313,6 +313,7 @@
       "cardBorderColor": "#2C3D01",
       "cardBorderRadius": "0.25rem",
       "cardBorderWidth": false
-    }
+    },
+    "css": "#section--intro img {border: 4px solid palegoldenrod;}"
   }
 }

@@ -10,6 +10,7 @@
   let textFontURL;
   let familyMain;
   let paragraphSettings;
+  let css;
 
   fetchJson.then((config) => {
     CYOAConfig.set(config);
@@ -24,6 +25,7 @@
     paragraphSettings = !!config.style?.paragraph
       ? `--line-height:${config.style?.paragraph?.lineHeight};--letter-spacing:${config.style?.paragraph?.letterSpacing};--font-family:${config.style?.paragraph?.fontFamily}`
       : "";
+    css = config.style.css;
 
     document.querySelector("html").style.fontSize =
       config.style.text.rootSize ?? "16px";
@@ -33,6 +35,8 @@
 <svelte:head>
   <link href={textFontURL} rel="stylesheet" />
 </svelte:head>
+
+{@html "<" +`style>${css}</style>`}
 
 {#await fetchJson}
   <main>
