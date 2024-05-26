@@ -287,7 +287,7 @@
     },
     "paragraph": {
       "lineHeight": "1.7",
-      "letterSpacing": "1.8px",
+      "letterSpacing": "1.2px",
       "fontFamily": "Georgia, serif"
     },
     "main": {
