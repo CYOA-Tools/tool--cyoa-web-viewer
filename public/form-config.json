@@ -18,7 +18,13 @@
     "hideGitLink": false,
     "altLink": "https://github.com/CYOA-Tools/tool--cyoa-web-viewer",
     "altLinkText": "ExLink",
-    "effectOrdering": ["Archetype", "Origin", "Allies", "Languages", "Items"]
+    "effectOrdering": [
+      "Archetype",
+      "Origin",
+      "Allies",
+      "Languages",
+      "Items"
+    ]
   },
   "title": {
     "cyoaName": "Deep Forest CYOA",
@@ -45,7 +51,10 @@
           "title": "Human Hunter",
           "description": "Your rugged boots have traversed countless miles of wildwood, leaving nary a footprint but those of your prey. With quiver full of arrows at your back and trusty spear in hand, you stalk the shadows with stealth as quiet as night. Your knowledge of stealth and tracking was often employed by men of the law to aid in the search for outlaws.",
           "image": "/images/archetype-human-hunter.webp",
-          "cost": [0, 0],
+          "cost": [
+            0,
+            0
+          ],
           "effects": [
             {
               "type": "uniqueString",
@@ -57,8 +66,7 @@
               "key": "Items",
               "data": {
                 "quantity": 1,
-                "name": "Short Bow",
-                "desc": "A hunter's shortbow, nimble and quick to fire"
+                "name": "Short Bow"
               }
             }
           ]
@@ -67,7 +75,10 @@
           "title": "Human Warrior",
           "description": "You are a warrior forged in the crucible of combat, every scar and bruise telling the tale of your unwavering courage! Your armor bears the scars of countless battles, as does your heart. With sword at side and shield emblazoned with the emblem of your fallen comrades, you charge into fray like a storm unleashed upon the land! What legends will you forge in these untamed realms? Will it be one of valor, or perhaps of vengeance? The gods themselves seem to whisper tales of your exploits, don't they?. Your fearlessness in battle when destroying corrupted beasts of this land has made you an ally of those who stand aside the plane of death, granting you the capacity to speak the tongue of the deathwatch carrion crows.",
           "image": "/images/archetype-human-warrior.webp",
-          "cost": [50, 0],
+          "cost": [
+            50,
+            0
+          ],
           "effects": [
             {
               "type": "uniqueString",
@@ -79,8 +90,7 @@
               "key": "Items",
               "data": {
                 "quantity": 1,
-                "name": "Stout Shield",
-                "desc": "A fine, hardy, shield, painted with family heraldry"
+                "name": "Stout Shield"
               }
             },
             {
@@ -88,8 +98,7 @@
               "key": "Items",
               "data": {
                 "quantity": 1,
-                "name": "Battle Axe",
-                "desc": "A heavy, well balanced warriors axe, worn, but still to be greatly feared"
+                "name": "Battle Axe"
               }
             },
             {
@@ -97,8 +106,7 @@
               "key": "Languages",
               "data": {
                 "quantity": 1,
-                "name": "Carrion Tongue",
-                "desc": "The capacity to speak the tongue of crows"
+                "name": "Carrion Tongue"
               }
             }
           ]
@@ -116,7 +124,10 @@
           "title": "Origoth - the Cave City",
           "description": "In the depths of the earth, the dwarven city of Origoth thrums with ancient power, its tunnels winding like veins through granite rock. Here, the stout-hearted folk forge their destiny amidst glittering crystals and precious metals. Yet beneath the surface, rival clans jostle for dominance in a struggle that echoes the very earth itself.",
           "image": "/images/origin-origoth.webp",
-          "cost": [50, 0],
+          "cost": [
+            50,
+            0
+          ],
           "effects": [
             {
               "type": "uniqueString",
@@ -128,8 +139,7 @@
               "key": "Items",
               "data": {
                 "quantity": 1,
-                "name": "Origoth Lantern",
-                "desc": "Famed for their compact size & brigth light, it is a token of your childhood"
+                "name": "Origoth Lantern"
               }
             }
           ]
@@ -138,7 +148,10 @@
           "title": "The Looming Spires",
           "description": "Here, pilgrims journey to honor the god of harvests, whose blessings have long nurtured the nearby forests through times of famine and plenty. But amidst this tranquility, a crisis brews - a bitter feud between neighboring monasteries over faith's finer points threatens to spill blood on sacred grounds, amid it's high walls the hermitage of Gorruk holds fast to its dwarven traditions, and religious fervor is beginning to boil over into petty squabbles and skirmishes!",
           "image": "/images/origin-looming-spires.webp",
-          "cost": [0, 0],
+          "cost": [
+            0,
+            0
+          ],
           "effects": [
             {
               "type": "uniqueString",
@@ -160,15 +173,17 @@
           "title": "Ragnar 'Thunderhammer' Erifson",
           "description": "A gruff, battle-scarred dwarf with a heart of gold beneath his prickly exterior! When he lets loose with his trusty warhammer, the very earth shakes and giants tremble - but only after he's had his morning ale and a good belly laugh! A loyal ally to count on in the heat of battle. Just don't get him started on his least favorite topic: bards. The mere mention sends him stomping off in a huff, muttering something about 'too many notes'.",
           "image": "/images/ally-ragnar.webp",
-          "cost": [100, 0],
+          "cost": [
+            100,
+            0
+          ],
           "effects": [
             {
               "type": "list",
               "key": "Allies",
               "data": {
                 "quantity": 1,
-                "name": "Ragnar 'Mad Axe' Erifson",
-                "desc": "A quiet man, quick to a powerful beserker rage. +cats, -bards"
+                "name": "Ragnar 'Mad Axe' Erifson"
               }
             }
           ]
@@ -177,15 +192,17 @@
           "title": "Karrick 'Steel' Olborn",
           "description": "A foul-mouthed human with a penchant for causing chaos! His battle tactics are as unpredictable as his next hangover, leaving enemies reeling from one wild swing to the next. Though his strategies may not always succeed... they never fail to entertain! Just don't expect him to lend you any of his famous 'Riot's Revenge' ale after a long day of pillaging - unless you're buying! As for romance, he has a soft spot for curvaceous beauty and isn't afraid to show it.",
           "image": "/images/ally-karrick.webp",
-          "cost": [50, 0],
+          "cost": [
+            50,
+            0
+          ],
           "effects": [
             {
               "type": "list",
               "key": "Allies",
               "data": {
                 "quantity": 1,
-                "name": "Karrick 'Steel' Olborn",
-                "desc": "Grumpy dwarven drunkard, cunning, if dangerous planner. +chubby ladies, -sheriffs"
+                "name": "Karrick 'Steel' Olborn"
               }
             }
           ]
@@ -203,15 +220,17 @@
           "title": "Elixir of heaven's dew",
           "description": "A misty but radiant, honey colored brew infused with the essence of dawn flowers and blessed by the morning sun goddess. Drink deep and let healing energies course through your veins - the perfect remedy for those seeking to cheat mortal fate! Just be warned, it' might just leave you feeling a bit too peppy come nightfall.",
           "image": "/images/item-elixir.webp",
-          "cost": [100, 0],
+          "cost": [
+            100,
+            0
+          ],
           "effects": [
             {
               "type": "list",
               "key": "Items",
               "data": {
                 "quantity": 1,
-                "name": "Elixir of heaven's dew",
-                "desc": "Honey potion, cures mortal wounds over 3 days"
+                "name": "Elixir of heaven's dew"
               }
             }
           ]
@@ -220,7 +239,10 @@
           "title": "Mechanical Talisman",
           "description": "An ornate amulet that whispers ominous warnings to its wearer, telling it's user of approaching dangers and which direction they are coming. Of little use beyond a mile, and inaccurate beyond a hundred yards",
           "image": "/images/item-talisman.webp",
-          "cost": [100, 0],
+          "cost": [
+            100,
+            0
+          ],
           "unique": true,
           "effects": [
             {
@@ -228,8 +250,7 @@
               "key": "Items",
               "data": {
                 "quantity": 1,
-                "name": "Mechanical Talisman",
-                "desc": "Indicates danger, and direction, though less accurate futher away, max range under a mile"
+                "name": "Mechanical Talisman"
               }
             }
           ]
@@ -246,30 +267,35 @@
         {
           "title": "Tactician",
           "description": "You have a powerful capacity for tactical thinking",
-          "cost": [0, 2],
+          "cost": [
+            0,
+            2
+          ],
           "effects": [
             {
               "type": "list",
               "key": "skill",
               "data": {
                 "quantity": 1,
-                "name": "Tactician",
-                "desc": "Seasoned and capable tactician"
+                "name": "Tactician"
               }
             }
           ]
-        },{
+        },
+        {
           "title": "Druidic Shapeshifter",
           "description": "You have the capacity to change your form into that of a wolf or a bear",
-          "cost": [0, 3],
+          "cost": [
+            0,
+            3
+          ],
           "effects": [
             {
               "type": "list",
               "key": "skill",
               "data": {
                 "quantity": 1,
-                "name": "Shapeshift",
-                "desc": "Shapeshift between wolf and bear"
+                "name": "Shapeshift"
               }
             }
           ]

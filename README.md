@@ -14,6 +14,5 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ## To Add
 
-- Item toolips
-- Item Icons
+- random rolls
 - Outro / game
