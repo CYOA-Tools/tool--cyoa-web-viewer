@@ -5,55 +5,93 @@
   import { CYOAConfig } from "./stores/config";
   import { Choices } from "./stores/choices";
   import { getFromLocalStorage } from "./stores/local-storage";
+  import { get } from "svelte/store";
 
-  let fetchJson = fetch("form-config.json").then((res) => res.json());
+  const urlParams = new URLSearchParams(window.location.search);
+  const src = urlParams.get("src") || "local";
+  console.log(">>>", src);
+
+  let isLoading = true;
   let textFontURL;
   let familyMain;
   let paragraphSettings;
   let css;
 
-  fetchJson.then((config) => {
-    CYOAConfig.set(config);
-    Choices.set({
-      points: config.setup.points.map((p) => p.startValue),
-      selections: {},
-      effects: {},
-      ...getFromLocalStorage(),
-    });
-    textFontURL = config.style.import.text;
-    familyMain = config.style.text.familyMain;
-    paragraphSettings = !!config.style?.paragraph
-      ? `--line-height:${config.style?.paragraph?.lineHeight};--letter-spacing:${config.style?.paragraph?.letterSpacing};--font-family:${config.style?.paragraph?.fontFamily}`
-      : "";
-    css = config.style.css;
+  function applyConfigFromMsg() {
+    window.addEventListener("message", (event) => {
+      console.log("addEventListener - message received", {
+        origin: event.origin,
+        data: event.data,
+      });
 
-    document.querySelector("html").style.fontSize =
-      config.style.text.rootSize ?? "16px";
-  });
+      const root = document.getElementById("root");
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = JSON.stringify(event.data);
+      root.appendChild(paragraph);
+    });
+  }
+
+  function applyConfigFromLocal() {
+    const fetchJson = fetch("form-config.json").then((res) => res.json());
+
+    fetchJson.then((config) => {
+      console.log(">>>", config);
+      CYOAConfig.set(config);
+      isLoading = false;
+      Choices.set({
+        points: config.setup.points.map((p) => p.startValue),
+        selections: {},
+        effects: {},
+        ...getFromLocalStorage(),
+      });
+      textFontURL = config.style.import.text;
+      familyMain = config.style.text.familyMain;
+      paragraphSettings = !!config.style?.paragraph
+        ? `--line-height:${config.style?.paragraph?.lineHeight};--letter-spacing:${config.style?.paragraph?.letterSpacing};--font-family:${config.style?.paragraph?.fontFamily}`
+        : "";
+      css = config.style.css;
+
+      document.querySelector("html").style.fontSize =
+        config.style.text.rootSize ?? "16px";
+    });
+  }
+
+  if (src === "local") {
+    applyConfigFromLocal();
+  } else {
+    window.addEventListener("message", applyConfigFromMsg);
+  }
 </script>
 
 <svelte:head>
   <link href={textFontURL} rel="stylesheet" />
 </svelte:head>
 
-{@html "<" +`style>${css}</style>`}
+{@html "<" + `style>${css}</style>`}
 
-{#await fetchJson}
+{#if isLoading}
   <main>
     <p>Loading CYOA settings</p>
   </main>
-{:then result}
+{/if}
+
+{#if isLoading}
+  <main>
+    <p>Loading CYOA settings</p>
+  </main>
+{:else}
   <div style={paragraphSettings}>
     <main
       class="w-full flex-1 flex bg-slate-200 justify-stretch h-screen overflow-hidden"
-      style="color:{result.style.text.textColor ?? 'black'};font-family:{result
-        .style.text.familyMain ?? 'sans'};"
+      style="color:{get(CYOAConfig).style.text.textColor ??
+        'black'};font-family:{get(CYOAConfig).style.text.familyMain ?? 'sans'};"
     >
       <Sidebar />
       <Main />
     </main>
   </div>
-{/await}
+{/if}
 
 <style>
   :global(html p.para) {
