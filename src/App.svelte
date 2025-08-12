@@ -9,7 +9,6 @@
 
   const urlParams = new URLSearchParams(window.location.search);
   const src = urlParams.get("src") || "local";
-  console.log(">>>", src);
 
   let isLoading = true;
   let textFontURL;
@@ -19,16 +18,11 @@
 
   function applyConfigFromMsg() {
     window.addEventListener("message", (event) => {
-      console.log("addEventListener - message received", {
-        origin: event.origin,
-        data: event.data,
-      });
-
-      const root = document.getElementById("root");
-
-      const paragraph = document.createElement("p");
-      paragraph.textContent = JSON.stringify(event.data);
-      root.appendChild(paragraph);
+      if (event.data.type === "config") {
+        const config = event.data.config;
+        CYOAConfig.set(config);
+        isLoading = false;
+      }
     });
   }
 
@@ -36,7 +30,6 @@
     const fetchJson = fetch("form-config.json").then((res) => res.json());
 
     fetchJson.then((config) => {
-      console.log(">>>", config);
       CYOAConfig.set(config);
       isLoading = false;
       Choices.set({
