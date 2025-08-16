@@ -8,7 +8,14 @@
   import { get } from "svelte/store";
 
   const urlParams = new URLSearchParams(window.location.search);
-  const src = urlParams.get("src") || "local";
+  // All possible sources of data
+  const sources = {
+    local: "local", // local .json file
+    embed: "embed", // embeded in app
+    iframe: "iframe", // iframe
+  };
+  const defaultSource = sources.embed;
+  const src = urlParams.get("src") || sources.embed;
 
   let isLoading = true;
   let textFontURL;
@@ -50,7 +57,7 @@
     });
   }
 
-  if (src === "local") {
+  if (src === defaultSource) {
     applyConfigFromLocal();
   } else {
     window.addEventListener("message", applyConfigFromMsg);
@@ -62,12 +69,6 @@
 </svelte:head>
 
 {@html "<" + `style>${css}</style>`}
-
-{#if isLoading}
-  <main>
-    <p>Loading CYOA settings</p>
-  </main>
-{/if}
 
 {#if isLoading}
   <main>

@@ -59,7 +59,7 @@
   style={rootStyle}
   class={`w-full flex-1 flex flex-col gap-6 p-3 md:p-6 overflow-y-scroll h-screen scrollbar-custom`}
 >
-  <Card style={cardStyle} className="gap-6" id="section--title">
+  <Card style={cardStyle} className="gap-6 mx-16" id="section--title">
     <div class="flex justify-between text-sm">
       <span>{config.title?.tagline}</span>
       <span>By {config.title?.author}</span>
