@@ -7,7 +7,8 @@
   import Icon from "@iconify/svelte";
   import Button from "./button.svelte";
 
-  const config = get(CYOAConfig);
+  let config = get(CYOAConfig);
+  CYOAConfig.subscribe((newVal) => (config = newVal));
   const mainStyle = config.style?.main;
   const rootStyle = `background:${mainStyle?.backgroundColor ?? "transparent"};color:${mainStyle?.textColor ?? "#000"}`;
   const cardStyle = `background:${mainStyle?.cardColor ?? "transparent"};border-style:${mainStyle?.cardBorderColor ?? "black"};border-radius:${mainStyle?.cardBorderRadius ?? "0.5rem"};border-width:${mainStyle?.cardBorderWidth ?? "1px"}`;

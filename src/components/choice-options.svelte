@@ -11,7 +11,8 @@
   export let getSelectionType;
   export let cardStyle;
 
-  const config = get(CYOAConfig);
+  let config = get(CYOAConfig);
+  CYOAConfig.subscribe((newVal) => (config = newVal));
   const mainStyle = config.style?.main;
 
   const selectionStyle = `border:${mainStyle?.selectionBorder ?? "transparent"};background:${mainStyle?.selectionBg ?? "transparent"}`;

@@ -9,7 +9,8 @@
   import { runJSONFromUpload } from "../utils/import-json";
   import { objectToLocalStorage } from "../stores/local-storage";
 
-  const config = get(CYOAConfig);
+  let config = get(CYOAConfig);
+  CYOAConfig.subscribe((newVal) => (config = newVal));
   const sidebarStyle = config.style?.sidebar;
   const cardStyle = `${sidebarStyle?.cardColor && "background:" + sidebarStyle?.cardColor};${sidebarStyle?.cardBorderColor && "border-style:" + sidebarStyle?.cardBorderColor};${sidebarStyle?.cardBorderRadius && "border-radius:" + sidebarStyle?.cardBorderRadius};${sidebarStyle?.cardBorderWidth && "border-width:" + sidebarStyle?.cardBorderWidth}`;
   const rootStyle = `${sidebarStyle?.backgroundColor && "background:" + sidebarStyle?.backgroundColor};${sidebarStyle?.textColor && "color:" + sidebarStyle?.textColor}`;

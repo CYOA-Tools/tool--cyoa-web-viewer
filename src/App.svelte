@@ -1,20 +1,18 @@
 <script>
   import "./app.css";
-  import Sidebar from "./components/sidebar.svelte";
-  import Main from "./components/main.svelte";
   import { CYOAConfig } from "./stores/config";
   import { Choices } from "./stores/choices";
   import { getFromLocalStorage } from "./stores/local-storage";
-  import { get } from "svelte/store";
+  import Root from "./components/root.svelte";
 
   const urlParams = new URLSearchParams(window.location.search);
   // All possible sources of data
   const sources = {
     local: "local", // local .json file
-    embed: "embed", // embeded in app
+    // embed: "embed", // embeded in app
     iframe: "iframe", // iframe
   };
-  const defaultSource = sources.embed;
+  const defaultSource = sources.local;
   const src = urlParams.get("src") || sources.embed;
 
   let isLoading = true;
@@ -23,8 +21,12 @@
   let paragraphSettings;
   let css;
 
+  window.appMessageListener = null;
   function applyConfigFromMsg() {
-    window.addEventListener("message", (event) => {
+    if (window.appMessageListener) {
+      return;
+    }
+    window.appMessageListener = window.addEventListener("message", (event) => {
       if (event.data.type === "config") {
         const config = event.data.config;
         CYOAConfig.set(config);
@@ -60,7 +62,7 @@
   if (src === defaultSource) {
     applyConfigFromLocal();
   } else {
-    window.addEventListener("message", applyConfigFromMsg);
+    applyConfigFromMsg();
   }
 </script>
 
@@ -70,22 +72,7 @@
 
 {@html "<" + `style>${css}</style>`}
 
-{#if isLoading}
-  <main>
-    <p>Loading CYOA settings</p>
-  </main>
-{:else}
-  <div style={paragraphSettings}>
-    <main
-      class="w-full flex-1 flex bg-slate-200 justify-stretch h-screen overflow-hidden"
-      style="color:{get(CYOAConfig).style.text.textColor ??
-        'black'};font-family:{get(CYOAConfig).style.text.familyMain ?? 'sans'};"
-    >
-      <Sidebar />
-      <Main />
-    </main>
-  </div>
-{/if}
+<Root  isLoading={isLoading} />
 
 <style>
   :global(html p.para) {

@@ -2,7 +2,8 @@
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
 
-  const config = get(CYOAConfig);
+  let config = get(CYOAConfig);
+  CYOAConfig.subscribe((newVal) => (config = newVal));
   export let opt;
 </script>
 
