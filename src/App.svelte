@@ -21,11 +21,14 @@
   let paragraphSettings;
   let css;
 
+  // @ts-ignore
   window.appMessageListener = null;
   function applyConfigFromMsg() {
+    // @ts-ignore
     if (window.appMessageListener) {
       return;
     }
+    // @ts-ignore
     window.appMessageListener = window.addEventListener("message", (event) => {
       if (event.data.type === "config") {
         const config = event.data.config;
