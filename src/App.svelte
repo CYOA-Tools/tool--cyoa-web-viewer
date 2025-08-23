@@ -13,7 +13,7 @@
     iframe: "iframe", // iframe
   };
   const defaultSource = sources.local;
-  const src = urlParams.get("src") || sources.embed;
+  const src = urlParams.get("src") || defaultSource;
 
   let isLoading = true;
   let textFontURL;
@@ -63,8 +63,14 @@
   }
 
   if (src === defaultSource) {
+    console.log(">>> Local source");
     applyConfigFromLocal();
+  } else if (src === sources.embed) {
+    console.log(">>> Embed source");
+    // TODO
+    applyConfigFromMsg();
   } else {
+    console.log(">>> Iframe Msg source");
     applyConfigFromMsg();
   }
 </script>
