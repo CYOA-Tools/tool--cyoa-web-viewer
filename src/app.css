@@ -50,3 +50,8 @@ body {
   /* width: 0.25rem; */
   background-clip: content-box;
 }
+
+img {
+  object-fit: cover;
+  object-position: center;
+}

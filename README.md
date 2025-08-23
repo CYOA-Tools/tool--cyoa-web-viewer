@@ -14,5 +14,7 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ## To Add
 
-- random rolls
-- Outro / game
+- inject CSS/JS into html
+- improve UI
+- styling via CSS variables
+- 
