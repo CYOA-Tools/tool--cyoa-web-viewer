@@ -4,6 +4,13 @@
 
 This library builds the generic HTML file that once combined with a CYOA JSON configuration will present an interactive CYOA.
 
+### Glossary
+
+A CYOA is made up of 
+
+**choices**
+ of which a user can select one or many **options**
+
 ## Goals
 
 - quick
@@ -14,7 +21,6 @@ This library builds the generic HTML file that once combined with a CYOA JSON co
 
 ## To Add
 
-- inject CSS/JS into html
-- improve UI
+- Fix selection
 - styling via CSS variables
 - 

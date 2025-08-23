@@ -2,51 +2,17 @@
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
   import Card from "./card.svelte";
-  import { SELECTION_TYPE, Choices, ChoiceDefault } from "../stores/choices";
+  import { Choices, ChoiceDefault } from "../stores/choices";
   import ChoiceOptions from "./choice-options.svelte";
   import Icon from "@iconify/svelte";
   import Button from "./button.svelte";
+  import SelectionSummary from "./selection-summary.svelte";
 
   let config = get(CYOAConfig);
   CYOAConfig.subscribe((newVal) => (config = newVal));
   const mainStyle = config.style?.main;
   const rootStyle = `background:${mainStyle?.backgroundColor ?? "transparent"};color:${mainStyle?.textColor ?? "#000"}`;
   const cardStyle = `background:${mainStyle?.cardColor ?? "transparent"};border-style:${mainStyle?.cardBorderColor ?? "black"};border-radius:${mainStyle?.cardBorderRadius ?? "0.5rem"};border-width:${mainStyle?.cardBorderWidth ?? "1px"}`;
-
-  let currentChoices;
-  Choices.subscribe((value) => {
-    currentChoices = value;
-  });
-
-  function getSelectionType(choice) {
-    if (!choice.choicesUnique) {
-      return SELECTION_TYPE.multi;
-    } else if (choice.maxChoices > 1) {
-      return SELECTION_TYPE.uniqueMulti;
-    }
-    return SELECTION_TYPE.uniqueOnce;
-  }
-
-  function choiceSummary(choice) {
-    const currentSelectionData = currentChoices.selections?.[choice.title];
-    const type = getSelectionType(choice);
-
-    if (currentSelectionData) {
-      switch (type) {
-        case SELECTION_TYPE.uniqueOnce:
-          return currentSelectionData;
-        case SELECTION_TYPE.uniqueMulti:
-          return currentSelectionData.join(", ");
-        case SELECTION_TYPE.multi:
-          return Object.entries(currentSelectionData)
-            .map(
-              ([title, number]) => `${title}${number > 1 ? " x" + number : ""}`
-            )
-            .join(", ");
-      }
-    }
-    return "None";
-  }
 
   function onReset() {
     Choices.update(() => ({
@@ -93,27 +59,11 @@
       >
     </div>
 
-    <ul class="list-disc pl-8">
-      {#key currentChoices}
-        {#each config.choices as choice}
-          <a href={`#${choice.title}`}>
-            <li>
-              <p class="flex justify-between gap-1.5 flex-wrap">
-                <span class="underline">{choice.title}</span>
-                <span>{choiceSummary(choice)}</span>
-              </p>
-            </li>
-          </a>
-        {/each}
-      {/key}
-    </ul>
+    <SelectionSummary />
   </Card>
 
   <ChoiceOptions
     {cardStyle}
-    {currentChoices}
-    {choiceSummary}
-    {getSelectionType}
   />
 
   <div class="flex justify-center gap-6">
