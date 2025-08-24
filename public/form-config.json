@@ -255,6 +255,25 @@
           ]
         },
         {
+          "title": "Elixir of honey",
+          "description": "A golden colored brew infused with the essence of honey and blessed by the honey goddess.",
+          "image": "/images/item-elixir.webp",
+          "cost": [
+            50,
+            0
+          ],
+          "effects": [
+            {
+              "type": "list",
+              "key": "Items",
+              "data": {
+                "quantity": 1,
+                "name": "Elixir of heaven's dew"
+              }
+            }
+          ]
+        },
+        {
           "title": "Mechanical Talisman",
           "description": "An ornate amulet that whispers ominous warnings to its wearer, telling it's user of approaching dangers and which direction they are coming. Of little use beyond a mile, and inaccurate beyond a hundred yards",
           "image": "/images/item-talisman.webp",

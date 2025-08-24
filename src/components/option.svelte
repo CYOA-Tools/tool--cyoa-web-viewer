@@ -78,22 +78,13 @@
     }
 
     const canAfford =
-      !isUnselectAction ||
+      isUnselectAction ||
       option.cost.every((cost, i) => {
-        if (cost < 1 || currentChoices.points[i] >= cost) {
+        if (cost <= 0 || currentChoices.points[i] >= cost) {
           return true;
         }
         return false;
       });
-    console.log(">>>OPTION- ON-OPTION-SELECT", {
-      isUnselectAction,
-      canAfford,
-      option,
-      currentChoices,
-      isSelected,
-      choiceType,
-      currentChoicePlayerSelection,
-    });
 
     // update points if can afford
     const newPoints = canAfford

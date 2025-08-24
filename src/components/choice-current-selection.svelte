@@ -3,23 +3,31 @@
   import { getSelectionType } from "../utils/helper";
 
   export let choice;
+  const choiceType = getSelectionType(choice);
 
   let currentChoices;
+  let quantity = 0;
   let choiceText = ""
 
   Choices.subscribe((value) => {
     currentChoices = value;
     choiceText = choiceSummary();
+
+    if(choiceType === SELECTION_TYPE.multi) {
+      quantity = Object.values(currentChoices.selections?.[choice.title] ?? {}).reduce((acc, curr) => acc + curr, 0);
+    } else {
+      quantity = currentChoices.selections?.[choice.title]?.length ?? 0;
+    }
+
   });
 
 
   function choiceSummary() {
     const currentSelectionData = currentChoices.selections?.[choice.title];
-    const type = getSelectionType(choice);
     let returnValue = "";
 
     if (currentSelectionData) {
-      switch (type) {
+      switch (choiceType) {
         case SELECTION_TYPE.uniqueOnce:
           returnValue = currentSelectionData;
           break;
@@ -43,9 +51,9 @@
   <span class="underline decoration-double">Selection:</span>
   {choiceText}
   {#if choice.maxChoices !== 1}
-    <span class="text-xs">({currentChoices.selections?.[choice.title]?.length ?? 0}/{choice.maxChoices})</span>
+    <span class="text-xs">({quantity}/{choice.maxChoices})</span>
   {/if}
-  {#if choice.maxChoices === currentChoices.selections?.[choice.title]?.length}
+  {#if choice.maxChoices === quantity}
     <span class="text-xs">-MAX-</span>
   {/if}
 </p>
