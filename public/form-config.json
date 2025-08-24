@@ -167,7 +167,7 @@
       "description": "Brothers sworn to your side, and who can be called upon in times of trouble",
       "style": "list",
       "choicesUnique": true,
-      "maxChoices": 3,
+      "maxChoices": 2,
       "options": [
         {
           "title": "Ragnar 'Thunderhammer' Erifson",
@@ -191,6 +191,25 @@
         {
           "title": "Karrick 'Steel' Olborn",
           "description": "A foul-mouthed human with a penchant for causing chaos! His battle tactics are as unpredictable as his next hangover, leaving enemies reeling from one wild swing to the next. Though his strategies may not always succeed... they never fail to entertain! Just don't expect him to lend you any of his famous 'Riot's Revenge' ale after a long day of pillaging - unless you're buying! As for romance, he has a soft spot for curvaceous beauty and isn't afraid to show it.",
+          "image": "/images/ally-karrick.webp",
+          "cost": [
+            50,
+            0
+          ],
+          "effects": [
+            {
+              "type": "list",
+              "key": "Allies",
+              "data": {
+                "quantity": 1,
+                "name": "Karrick 'Steel' Olborn"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Bobbo Von Bob",
+          "description": "third option",
           "image": "/images/ally-karrick.webp",
           "cost": [
             50,

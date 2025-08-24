@@ -3,7 +3,7 @@
   import { CYOAConfig } from "../stores/config";
   import Card from "./card.svelte";
   import { Choices, ChoiceDefault } from "../stores/choices";
-  import ChoiceOptions from "./choice-options.svelte";
+  import ChoiceOptions from "./choices.svelte";
   import Icon from "@iconify/svelte";
   import Button from "./button.svelte";
   import SelectionSummary from "./selection-summary.svelte";

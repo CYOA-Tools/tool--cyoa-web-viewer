@@ -12,7 +12,7 @@
 
   let currentChoices;
   Choices.subscribe((value) => {
-    currentChoices = {...value};
+    currentChoices = { ...value };
   });
 
   let formConfig = get(CYOAConfig);
@@ -20,13 +20,13 @@
 
   $: mainStyle = formConfig.style?.main;
 
-  $:selectionStyle = `border:${mainStyle?.selectionBorder ?? "transparent"};background:${mainStyle?.selectionBg ?? "transparent"}`;
-  $:unselectionStyle =
+  $: selectionStyle = `border:${mainStyle?.selectionBorder ?? "transparent"};background:${mainStyle?.selectionBg ?? "transparent"}`;
+  $: unselectionStyle =
     choiceStyle === "list"
       ? `border:${mainStyle?.unselectionBorder ?? "1px solid transparent"};background:${mainStyle?.unselectionBg ?? "transparent"};`
       : `border:${mainStyle?.unselectionBoxBorder ?? "1px solid transparent"};background:${mainStyle?.unselectionBoxBg ?? "transparent"};`;
 
-  $:choiceType = getSelectionType(choice);
+  $: choiceType = getSelectionType(choice);
   $: currentChoicePlayerSelection =
     currentChoices && currentChoices.selections?.[choice.title];
 
@@ -66,9 +66,16 @@
   $: isSelected = currentChoicePlayerSelection && checkOptionIsSelected();
 
   function onOptionSelect() {
-    console.log(">>>OPTION- ON-OPTION-SELECT");
     const isUnselectAction =
       isSelected && (option.unique || choiceType !== SELECTION_TYPE.multi);
+
+    if (
+      !isUnselectAction &&
+      choice.maxChoices > 1 &&
+      currentChoicePlayerSelection?.length >= choice.maxChoices
+    ) {
+      return;
+    }
 
     const canAfford =
       !isUnselectAction ||
@@ -78,6 +85,15 @@
         }
         return false;
       });
+    console.log(">>>OPTION- ON-OPTION-SELECT", {
+      isUnselectAction,
+      canAfford,
+      option,
+      currentChoices,
+      isSelected,
+      choiceType,
+      currentChoicePlayerSelection,
+    });
 
     // update points if can afford
     const newPoints = canAfford
@@ -96,7 +112,7 @@
       const currentSelectionData = choice.options.find(
         (option) => option.title === currentChoicePlayerSelection
       );
-      currentSelectionData.cost.map((pointValue, i) => {
+      currentSelectionData?.cost.map((pointValue, i) => {
         newPoints[i] = newPoints[i] + pointValue;
       });
     }
@@ -270,7 +286,9 @@
     <img class="w-full h-auto" src={option.image} alt={choice.title} />
   {/if}
 
-  <div class={`flex flex-col gap-1.5 items-start py-1.5 ${choiceStyle === "box" ? "p-1.5 xl:p-3 xl:gap-3" : ""} `}>
+  <div
+    class={`flex flex-col gap-1.5 items-start py-1.5 ${choiceStyle === "box" ? "p-1.5 xl:p-3 xl:gap-3" : ""} `}
+  >
     <h4 class="font-semibold">{option.title}</h4>
     <p class="text-sm text-left para">{option.description}</p>
     <Cost opt={option} />
