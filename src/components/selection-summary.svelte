@@ -19,8 +19,8 @@
       <a href={`#${choice.title}`}>
         <li>
           <p class="flex justify-between gap-1.5 flex-wrap">
-            <span class="underline">{choice.title}</span>
-            <ChoiceCurrentSelection {choice} />
+            <span class="">{choice.title}</span>
+            <ChoiceCurrentSelection showPrefix={false} {choice} />
           </p>
         </li>
       </a>

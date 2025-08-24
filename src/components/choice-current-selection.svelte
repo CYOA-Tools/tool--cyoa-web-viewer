@@ -2,6 +2,7 @@
   import { Choices, SELECTION_TYPE } from "../stores/choices";
   import { getSelectionType } from "../utils/helper";
 
+  export let showPrefix = true;
   export let choice;
   const choiceType = getSelectionType(choice);
 
@@ -48,7 +49,9 @@
 </script>
 
 <p class="text-sm">
-  <span class="underline decoration-double">Selection:</span>
+  {#if showPrefix}
+    <span class="underline decoration-double">Selection:</span>
+  {/if}
   {choiceText}
   {#if choice.maxChoices !== 1}
     <span class="text-xs">({quantity}/{choice.maxChoices})</span>
