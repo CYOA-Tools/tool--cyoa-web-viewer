@@ -192,9 +192,6 @@
     }
 
     Choices.update((current) => {
-      const selections = { ...current.selections };
-      let newEffects = { ...current.effects };
-
       return {
         points: newPoints,
         selections: newSelections,
@@ -232,6 +229,7 @@
         points,
         selections,
         effects,
+        playerImage: current.playerImage,
       };
     });
   }
@@ -258,6 +256,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div
       on:click={(e) => {
+        // stops background of cancel element being considered as an item click
         e.stopPropagation();
       }}
       role="button"

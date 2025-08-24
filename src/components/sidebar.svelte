@@ -190,7 +190,7 @@
       </div></Sidecard
     >
 
-    {#key choices}
+    {#key [choices, choiceEffects]}
       {#each choiceEffects as effect, i}
         {@const key = effectKeys[i]}
         <Sidecard style={cardStyle}>
