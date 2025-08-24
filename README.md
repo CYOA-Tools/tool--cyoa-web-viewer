@@ -21,7 +21,6 @@ A CYOA is made up of
 
 ## To Add
 
-- Fix selection
-- flash on no currency
-- styling via CSS variables
+
 - add icons to sidebar costs
+- styling via CSS variables

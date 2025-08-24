@@ -113,6 +113,7 @@
       </Button>
 
       <Sidecard
+        id="points-sidebar"
         style={cardStyle}
         className={currentWidth === options.thin
           ? "p-1.5 py-0.5  bg-white mt-3 rounded-md border border-black text-sm"

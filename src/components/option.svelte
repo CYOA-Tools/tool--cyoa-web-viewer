@@ -83,6 +83,7 @@
         if (cost <= 0 || currentChoices.points[i] >= cost) {
           return true;
         }
+        dispatchEvent(new CustomEvent('insufficientPoints'));
         return false;
       });
 
