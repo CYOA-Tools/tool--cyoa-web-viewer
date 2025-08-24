@@ -288,7 +288,7 @@
     <img
       src={option.image}
       alt={choice.title}
-      class="border-4 border-black max-w-40"
+      class="border-4 border-black max-w-40 max-h-60"
     />
   {/if}
 </button>
