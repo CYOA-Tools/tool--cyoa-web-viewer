@@ -21,6 +21,4 @@ A CYOA is made up of
 
 ## To Add
 
-
-- add icons to sidebar costs
 - styling via CSS variables

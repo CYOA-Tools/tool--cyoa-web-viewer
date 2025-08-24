@@ -121,9 +121,17 @@
       >
         {#each config.setup.points as pointTypes, index}
           <div class="flex gap-2 items-center">
-            <span class={currentWidth === options.wide ? "hidden" : "block"}
-              >{pointTypes.name}</span
-            >
+            {#if config.setup.points[index].icon}
+              <img
+                src={config.setup.points[index].icon}
+                alt="points icon"
+                class="h-6"
+              />
+            {:else}
+              <span class={currentWidth === options.wide ? "hidden" : "block"}
+                >{pointTypes.name}</span
+              >
+            {/if}
             <span>{choices?.points?.[index] ?? pointTypes.startValue} </span>
           </div>
         {/each}
