@@ -1,6 +1,4 @@
 <script>
-  import { get } from "svelte/store";
-  import { CYOAConfig } from "../stores/config";
   import { Choices, SELECTION_TYPE } from "../stores/choices";
   import { getSelectionType, adjustplayerEffects } from "../utils/helper";
   import Cost from "./cost.svelte";
@@ -14,17 +12,6 @@
   Choices.subscribe((value) => {
     currentChoices = { ...value };
   });
-
-  let formConfig = get(CYOAConfig);
-  CYOAConfig.subscribe((newVal) => (formConfig = newVal));
-
-  $: mainStyle = formConfig.style?.main;
-
-  $: selectionStyle = `border:${mainStyle?.selectionBorder ?? "transparent"};background:${mainStyle?.selectionBg ?? "transparent"}`;
-  $: unselectionStyle =
-    choiceStyle === "list"
-      ? `border:${mainStyle?.unselectionBorder ?? "1px solid transparent"};background:${mainStyle?.unselectionBg ?? "transparent"};`
-      : `border:${mainStyle?.unselectionBoxBorder ?? "1px solid transparent"};background:${mainStyle?.unselectionBoxBg ?? "transparent"};`;
 
   $: choiceType = getSelectionType(choice);
   $: currentChoicePlayerSelection =
@@ -243,13 +230,13 @@
 </script>
 
 <button
-  class={`relative
+  class={`option-item
+  relative
   flex flex-col gap-3
   border-2 w-full
-  ${choiceStyle === "list" ? "pl-1.5 max-w-5xl xs:flex-row justify-between xl:gap-6" : ""}
-  ${choiceStyle === "box" ? "md:w-64 lg:w-72 xl:w-80 rounded-lg overflow-hidden" : ""}
-  ${isSelected ? "border-red-600" : "border-transparent"}`}
-  style={isSelected ? selectionStyle : unselectionStyle}
+  ${choiceStyle === "list" ? "max-w-5xl xs:flex-row justify-between xl:gap-6" : ""}
+  ${choiceStyle === "box" ? "md:w-64 lg:w-72 xl:w-80 rounded-lg overflow-hidden" : ""}`}
+  data-selected={isSelected}
   on:click={onOptionSelect}
 >
   {#if isMultiAndSelected && !option.unique}
@@ -278,17 +265,38 @@
   {/if}
 
   <div
-    class={`flex flex-col gap-1.5 items-start py-1.5 ${choiceStyle === "box" ? "p-1.5 xl:p-3 xl:gap-3" : ""} `}
+    class={`flex flex-col gap-1.5 items-start
+    ${choiceStyle === "box" ? "p-1.5 xl:p-3 xl:gap-3" : ""}
+    ${choiceStyle === "list" ? "p-3" : ""}`}
   >
     <h4 class="font-semibold">{option.title}</h4>
-    <p class="text-sm text-left para">{option.description}</p>
+    <p class="text-left para">{option.description}</p>
     <Cost opt={option} />
   </div>
   {#if choiceStyle === "list" && option.image}
     <img
       src={option.image}
       alt={choice.title}
-      class="border-4 border-black max-w-40 max-h-60"
+      class="list-image border-4 max-w-40 max-h-60"
     />
   {/if}
 </button>
+
+
+<style>
+  .option-item {
+    border: var(--main-unselected-option-border, 1px solid transparent);
+    background: var(--main-unselected-option-bg, transparent);
+    color: var(--main-unselected-option-text-color, inherit);
+  }
+
+  button.option-item[data-selected="true"] {
+    border: var(--main-selected-option-border, 1px solid black);
+    background: var(--main-selected-option-bg, transparent);
+    color: var(--main-selected-option-text-color, inherit);
+  }
+
+  img.list-image {
+    border-color: var(--main-image-border-color, black);
+  }
+</style>

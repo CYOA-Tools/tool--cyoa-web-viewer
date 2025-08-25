@@ -348,7 +348,14 @@
     "text": {
       "familyMain": "'Sedan SC', sans",
       "rootSize": "18px",
-      "textColor": "#000"
+      "textColor": "#fff"
+    },
+    "title": {
+      "fontFamily": "Audiowide, sans",
+      "fontSize": "2rem",
+      "fontWeight": "bold",
+      "backgroundColor": "linear-gradient(61deg, rgba(73,101,1,1) -20%, rgba(92,123,20,1) 57%, rgba(2,60,64,1) 130%);",
+      "textColor": "white"
     },
     "paragraph": {
       "lineHeight": "1.7",
@@ -356,28 +363,21 @@
       "fontFamily": "Georgia, serif"
     },
     "main": {
-      "backgroundColor": "linear-gradient(61deg, rgba(73,101,1,1) -20%, rgba(92,123,20,1) 57%, rgba(2,60,64,1) 130%);",
-      "textColor": "white",
-      "cardColor": "#023C40",
-      "cardBorderColor": "#2C3D01",
-      "cardBorderRadius": "0.25rem",
-      "cardBorderWidth": false,
-      "boxBg": "#012527",
-      "unselectionBorder": "1px solid transparent",
-      "unselectionBg": "transparent",
-      "unselectionBoxBorder": "1px solid black",
-      "unselectionBoxBg": "#035E63",
-      "selectionBorder": "1px solid #64CE9E",
-      "selectionBg": "#012527",
-      "imageBorder": "#496501"
-    },
-    "sidebar": {
-      "backgroundColor": "linear-gradient(61deg, rgba(73,101,1,1) -20%, rgba(92,123,20,1) 57%, rgba(2,60,64,1) 130%);",
-      "textColor": "white",
-      "cardColor": "#023C40",
-      "cardBorderColor": "#2C3D01",
-      "cardBorderRadius": "0.25rem",
-      "cardBorderWidth": false
+      "pageBackgroundColor": "linear-gradient(61deg, rgba(73,101,1,1) -20%, rgba(92,123,20,1) 57%, rgba(2,60,64,1) 130%);",
+      "cardBackgroundColor": "#023C40",
+      "cardBorderColor": "#000",
+      "cardBorderRadius": "0.5rem",
+      "cardBorderWidth": 2,
+
+      "unselectedOptionBorder": "1px solid #051d1e",
+      "unselectedOptionBg": "#012527",
+      "unselectedOptionTextColor": "inherit",
+  
+      "selectedOptionBorder": "1px solid #64CE9E",
+      "selectedOptionBg": "#012527",
+      "selectedOptionTextColor": "inherit",
+
+      "listImageBorder": "#496501"
     },
     "css": "#section--intro img {border: 4px solid palegoldenrod;}"
   }

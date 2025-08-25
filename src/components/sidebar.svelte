@@ -1,19 +1,16 @@
 <script>
   import Icon from "@iconify/svelte";
-  import Button from "./button.svelte";
   import { get } from "svelte/store";
   import { CYOAConfig } from "../stores/config";
   import { Choices } from "../stores/choices";
-  import Sidecard from "./sidecard.svelte";
+  import Card from "./card.svelte";
+  import CardButton from "./card-button.svelte";
   import { createFileFromObj } from "../utils/export-json";
   import { runJSONFromUpload } from "../utils/import-json";
   import { objectToLocalStorage } from "../stores/local-storage";
 
   let config = get(CYOAConfig);
   CYOAConfig.subscribe((newVal) => (config = newVal));
-  const sidebarStyle = config.style?.sidebar;
-  const cardStyle = `${sidebarStyle?.cardColor && "background:" + sidebarStyle?.cardColor};${sidebarStyle?.cardBorderColor && "border-style:" + sidebarStyle?.cardBorderColor};${sidebarStyle?.cardBorderRadius && "border-radius:" + sidebarStyle?.cardBorderRadius};${sidebarStyle?.cardBorderWidth && "border-width:" + sidebarStyle?.cardBorderWidth}`;
-  const rootStyle = `${sidebarStyle?.backgroundColor && "background:" + sidebarStyle?.backgroundColor};${sidebarStyle?.textColor && "color:" + sidebarStyle?.textColor}`;
 
   let choices = {};
   let showImport = false;
@@ -80,41 +77,44 @@
 </script>
 
 <div
-  class={`type-${currentWidth} w-32 h-vscreen flex flex-col bg-slate-800 border-r border-black overflow-x-hidden overflow-y-auto scrollbar-custom z-10`}
-  style={rootStyle}
+  class={`
+  sidebar-container type-${currentWidth}
+  w-32 pb-8
+  h-vscreen flex
+  flex-col
+  bg-slate-800
+  border-r border-black
+  overflow-x-hidden overflow-y-auto
+  scrollbar-custom z-10`}
 >
   <div class="flex justify-between p-1.5">
-    <Button
+    <CardButton
       onclick={() => (currentWidth = options.thin)}
-      style={cardStyle}
       className={currentWidth === options.thin ? "hidden" : "w-8"}
     >
-      <Icon class="rotate-180" icon="fluent:arrow-next-12-filled" /></Button
+      <Icon class="rotate-180" icon="fluent:arrow-next-12-filled" /></CardButton
     >
-    <Button
+    <CardButton
       onclick={() => (currentWidth = options.mid)}
-      style={cardStyle}
       className={currentWidth === options.thin
         ? "hidden"
         : "w-8 hidden sm:block"}
       active={currentWidth === options.mid}
-      ><Icon icon="fluent:arrow-left-32-filled" /></Button
+      ><Icon icon="fluent:arrow-left-32-filled" /></CardButton
     >
     <div
       class={currentWidth === options.thin ? "absolute z-20 flex flex-col" : ""}
     >
-      <Button
+      <CardButton
         onclick={() => (currentWidth = options.wide)}
-        style={cardStyle}
         active={currentWidth === options.wide}
         className="w-8"
       >
         <Icon icon="fluent:arrow-next-12-filled" />
-      </Button>
+      </CardButton>
 
-      <Sidecard
+      <Card
         id="points-sidebar"
-        style={cardStyle}
         className={currentWidth === options.thin
           ? "p-1.5 py-0.5  bg-white mt-3 rounded-md border border-black text-sm"
           : "hidden"}
@@ -135,12 +135,12 @@
             <span>{choices?.points?.[index] ?? pointTypes.startValue} </span>
           </div>
         {/each}
-      </Sidecard>
+      </Card>
     </div>
   </div>
 
   <div class="p-1.5 text-sm xl:text-base flex flex-col gap-2 h-full">
-    <Sidecard style={cardStyle}>
+    <Card>
       <div class="flex gap-2">
         <label for="name">Name:</label>
         <input
@@ -187,13 +187,13 @@
             </div>
           {/each}
         </div>
-      </div></Sidecard
-    >
+      </div>
+    </Card>
 
     {#key [choices, choiceEffects]}
       {#each choiceEffects as effect, i}
         {@const key = effectKeys[i]}
-        <Sidecard style={cardStyle}>
+        <Card>
           {@const isUniqueString = typeof effect === "string"}
 
           {#if isUniqueString}
@@ -216,26 +216,24 @@
               {/each}
             </div>
           {/if}
-        </Sidecard>
+        </Card>
       {/each}
     {/key}
 
     <div class="flex-1"></div>
 
     <div class="text-center flex flex-wrap gap-3 mx-auto">
-      <Button onclick={onExport} style={cardStyle}>Export</Button>
+      <CardButton onclick={onExport}>Export</CardButton>
       <div class="bg-white rounded-md flex flex-wrap">
-        <Button onclick={() => (showImport = true)} style={cardStyle}
-          >Import</Button
-        >
+        <CardButton onclick={() => (showImport = true)}>Import</CardButton>
         {#if showImport}
           <div class="p-0.5 flex gap-1 items-center">
             <input type="file" id="import-json" />
-            <Button onclick={onImport} style={cardStyle}
-              ><Icon class="text-green-600" icon="mdi:import" /></Button
+            <CardButton onclick={onImport}
+              ><Icon class="text-green-600" icon="mdi:import" /></CardButton
             >
-            <Button onclick={() => (showImport = false)} style={cardStyle}
-              ><Icon icon="oi:collapse-left" /></Button
+            <CardButton onclick={() => (showImport = false)}
+              ><Icon icon="oi:collapse-left" /></CardButton
             >
           </div>
         {/if}
@@ -245,6 +243,9 @@
 </div>
 
 <style>
+  div.sidebar-container {
+    background: var(--main-page-background-color);
+  }
   div.type-wide {
     position: absolute;
     width: 80%;

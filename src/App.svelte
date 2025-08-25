@@ -4,6 +4,7 @@
   import { Choices } from "./stores/choices";
   import { getFromLocalStorage } from "./stores/local-storage";
   import Root from "./components/root.svelte";
+  import { configCSS } from "./utils/configCSS";
 
   const urlParams = new URLSearchParams(window.location.search);
   // All possible sources of data
@@ -17,9 +18,8 @@
 
   let isLoading = true;
   let textFontURL;
-  let familyMain;
-  let paragraphSettings;
-  let css;
+  let customCSS;
+  let formCSS;
 
   // @ts-ignore
   window.appMessageListener = null;
@@ -51,14 +51,8 @@
         ...getFromLocalStorage(),
       });
       textFontURL = config.style.import.text;
-      familyMain = config.style.text.familyMain;
-      paragraphSettings = !!config.style?.paragraph
-        ? `--line-height:${config.style?.paragraph?.lineHeight};--letter-spacing:${config.style?.paragraph?.letterSpacing};--font-family:${config.style?.paragraph?.fontFamily}`
-        : "";
-      css = config.style.css;
-
-      document.querySelector("html").style.fontSize =
-        config.style.text.rootSize ?? "16px";
+      customCSS = config.style.css;
+      formCSS = configCSS(config.style);
     });
   }
 
@@ -79,15 +73,16 @@
   <link href={textFontURL} rel="stylesheet" />
 </svelte:head>
 
-{@html "<" + `style>${css}</style>`}
+{@html "<" + `style id="custom-css">${customCSS}</style>`}
+{@html "<" + `style id="form-css">${formCSS}</style>`}
 
-<Root  isLoading={isLoading} />
+<Root {isLoading} />
 
 <style>
   :global(html p.para) {
-    line-height: var(--line-height);
-    letter-spacing: var(--letter-spacing);
-    font-family: var(--font-family);
+    line-height: var(--paragraph-line-height);
+    letter-spacing: var(--paragraph-letter-spacing);
+    font-family: var(--paragraph-font-family);
     max-width: 720px;
     white-space: pre-line;
   }

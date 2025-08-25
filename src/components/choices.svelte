@@ -6,8 +6,6 @@
   import Option from "./option.svelte";
   import ChoiceCurrentSelection from "./choice-current-selection.svelte";
 
-  export let cardStyle;
-
   let config = get(CYOAConfig);
   CYOAConfig.subscribe((newVal) => (config = newVal));
 
@@ -18,41 +16,43 @@
     localList[i] = setCollapsed;
     isCollapsedList = localList;
   }
-
 </script>
 
-  {#each config.choices as choice, i}
-    <Card style={cardStyle} className="relative" id="section-{choice.title.toLowerCase().replace(/\s/g, "-")}">
-      <button
-        on:click={() => updateCollapsed(i, !isCollapsedList[i])}
-        class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min h-6 -mb-6 z-20`}
-        ><Icon icon="gravity-ui:chevrons-collapse-vertical" /></button
-      >
+{#each config.choices as choice, i}
+  <Card
+    className="relative"
+    id="section-{choice.title.toLowerCase().replace(/\s/g, '-')}"
+  >
+    <button
+      on:click={() => updateCollapsed(i, !isCollapsedList[i])}
+      class={`${isCollapsedList[i] ? "bg-slate-900" : "bg-slate-500"} transition-colors bg-opacity-60 text-white p-1 px-1.5 rounded-md top-0 left-full sticky w-min h-6 -mb-6 z-20`}
+      ><Icon icon="gravity-ui:chevrons-collapse-vertical" /></button
+    >
 
-      <div class="flex flex-col gap-3" id={choice.title}>
-        <h2 class="text-2xl font-bold">{choice.title}</h2>
+    <div class="flex flex-col gap-3" id={choice.title}>
+      <h2 class="text-2xl font-bold">{choice.title}</h2>
 
-        <p class="text-sm para">{choice.description}</p>
-        <ChoiceCurrentSelection {choice} />
+      <p class="para">{choice.description}</p>
+      <ChoiceCurrentSelection {choice} />
 
-        <div class="flex flex-col gap-3">
-          {#if !isCollapsedList[i]}
-            <div class="w-full h-px bg-black"></div>
-            {#if choice.style === "list"}
-              <div class="flex flex-col gap-3 items-center">
-                {#each choice.options as opt}
-                  <Option choice={choice} option={opt} choiceStyle="list" />
-                {/each}
-              </div>
-            {:else}
-              <div class="flex flex-wrap w-full gap-3 2xl:gap-6 justify-center">
-                {#each choice.options as opt}
-                  <Option choice={choice} option={opt} choiceStyle="box" />
-                {/each}
-              </div>
-            {/if}
+      <div class="flex flex-col gap-3">
+        {#if !isCollapsedList[i]}
+          <div class="w-full h-px bg-black"></div>
+          {#if choice.style === "list"}
+            <div class="flex flex-col gap-3 items-center">
+              {#each choice.options as opt}
+                <Option {choice} option={opt} choiceStyle="list" />
+              {/each}
+            </div>
+          {:else}
+            <div class="flex flex-wrap w-full gap-3 2xl:gap-6 justify-center">
+              {#each choice.options as opt}
+                <Option {choice} option={opt} choiceStyle="box" />
+              {/each}
+            </div>
           {/if}
-        </div>
+        {/if}
       </div>
-    </Card>
-  {/each}
+    </div>
+  </Card>
+{/each}
