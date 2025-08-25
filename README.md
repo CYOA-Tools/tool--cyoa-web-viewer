@@ -21,4 +21,5 @@ A CYOA is made up of
 
 ## To Add
 
+- color overrides & reactivity
 - styling via CSS variables
